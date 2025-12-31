@@ -1,0 +1,16 @@
+THỐNG KÊ CHIẾN LƯỢC CHỌN MẪU
+======================================================================
+
+Tổng mẫu: 9,000
+
+Phân bố theo chiến lược:
+  - random: 3,000 (33.3%)
+  - hate_keyword: 3,000 (33.3%)
+  - sensitive_topic: 3,000 (33.3%)
+
+IAA Set: 500 mẫu
+Mỗi thành viên: ~2,833 mẫu riêng
+
+💡 Hướng dẫn tính Fleiss' Kappa:
+   Sử dụng thư viện: from statsmodels.stats.inter_rater import fleiss_kappa
+   Kappa > 0.6 = Tốt | Kappa > 0.8 = Rất tốt

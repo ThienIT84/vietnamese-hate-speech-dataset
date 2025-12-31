@@ -1,99 +1,163 @@
-# Vietnamese Hate Speech Detection Dataset
+# 🔥 SafeSense-VI: Vietnamese Toxic Comment Classification
 
-Dự án xây dựng bộ dữ liệu phát hiện ngôn từ thù ghét (Hate Speech) tiếng Việt chất lượng cao (~12K mẫu), phục vụ huấn luyện mô hình PhoBERT.
+Hệ thống phân loại bình luận độc hại tiếng Việt sử dụng Deep Learning (PhoBERT/ViDeBERTa).
 
-## 📂 Cấu trúc dự án
+## 📊 Project Overview
 
-```
-Dataset/
-├── data/                    # Quản lý dữ liệu
-│   ├── raw/                 # Dữ liệu thô (JSON từ Facebook/YouTube)
-│   ├── processed/           # Dữ liệu đã qua xử lý sơ bộ
-│   ├── labeled/             # Dữ liệu đã gán nhãn thủ công
-│   └── final/               # Dataset hoàn chỉnh (Final version)
-│
-├── notebooks/               # Jupyter Notebooks phân tích & trình bày
-│   ├── 01_Data_Journey_Presentation.ipynb  # Báo cáo hành trình dữ liệu
-│   └── ...
-│
-├── scripts/                 # Các script tiện ích (Utility scripts)
-│   ├── analyze_coverage.py
-│   ├── auto_label_samples.py
-│   └── ...
-│
-├── src/                     # Source code chính
-│   ├── preprocessing/       # Pipeline tiền xử lý (Clean text, normalize)
-│   ├── labeling/            # Logic gán nhãn, Active Learning
-│   ├── training/            # Code huấn luyện mô hình
-│   └── utils/               # Các hàm tiện ích chung
-│
-├── docs/                    # Tài liệu hướng dẫn (Guideline, Plan)
-├── models/                  # Nơi lưu trữ models (đã train)
-└── configs/                 # File cấu hình
-```
+- **Task**: Multi-class classification (Clean / Toxic / Hate)
+- **Dataset**: 6,139 labeled Vietnamese comments
+- **Models**: PhoBERT-v2, ViDeBERTa (planned)
+- **Target**: F1 > 0.72 (Competition: IT GotTalent)
 
-## 🚀 Cài đặt
+## 🚀 Quick Start
 
-1. Clone repository:
+### 1. Training với PhoBERT (Current)
+
 ```bash
-git clone https://github.com/username/repo-name.git
-cd repo-name
+# Xem hướng dẫn
+cat docs/HUONG_DAN_KAGGLE_V2.md
+
+# Training data
+data/final/final_train_data_v3_READY.xlsx  # 6,139 samples, pre-segmented
+
+# Training script
+scripts/training/KAGGLE_TRAINING_CELLS_V2.py
 ```
 
-2. Cài đặt môi trường:
+### 2. Chuyển sang ViDeBERTa (Recommended)
+
+ViDeBERTa tốt hơn PhoBERT cho toxic comments:
+- ✅ Hiểu social media text tốt hơn
+- ✅ Không cần word segmentation
+- ✅ Max length 512 (vs 256)
+- ✅ Kỳ vọng F1 tăng 3-5%
+
+## 📁 Project Structure
+
+```
+project/
+├── scripts/
+│   ├── preprocessing/       # Data preprocessing scripts
+│   ├── training/           # Training scripts (PhoBERT V2)
+│   └── analysis/           # Analysis & evaluation
+├── data/
+│   ├── final/             # Final training data (READY files)
+│   └── review/            # Data for manual review
+├── docs/                  # Documentation & guides
+├── src/                   # Source code (preprocessing modules)
+├── archive/               # Old files (can delete)
+│   ├── backups/          # Old data versions
+│   ├── old_scripts/      # Deprecated scripts
+│   ├── test_files/       # Test scripts
+│   ├── intermediate_data/# Intermediate processing data
+│   └── old_training/     # Old training scripts (V1, Colab)
+├── models/               # Saved models
+└── configs/              # Configuration files
+```
+
+## 📦 Key Files
+
+### Training Data
+- `data/final/final_train_data_v3_READY.xlsx` - **MAIN TRAINING DATA** (pre-segmented)
+- `data/final/final_train_data_v3_CLEANED.xlsx` - Cleaned version
+
+### Training Scripts
+- `scripts/training/KAGGLE_TRAINING_CELLS_V2.py` - PhoBERT training (18 cells)
+
+### Documentation
+- `docs/HUONG_DAN_KAGGLE_V2.md` - Kaggle training guide
+- `docs/WORD_SEGMENTATION_GUIDE.md` - Word segmentation guide
+- `docs/PREPROCESSING_DOCUMENTATION.md` - Preprocessing docs
+- `docs/TRAINING_IMPROVEMENT_GUIDE.md` - Tips to improve F1
+
+### Preprocessing
+- `scripts/preprocessing/teencode_tool.py` - Teencode normalization
+- `scripts/preprocessing/check_and_clean_final_data.py` - Data cleaning
+- `scripts/preprocessing/analyze_model_errors.py` - Error analysis
+
+## 🎯 Training Pipeline
+
+1. **Data Preparation** ✅
+   - Cleaned, deduplicated, segmented
+   - 6,139 samples ready
+
+2. **Training** (Current)
+   - Model: PhoBERT-v2
+   - Platform: Kaggle (GPU T4 x2)
+   - Expected F1: 0.72-0.76
+
+3. **Next Steps**
+   - [ ] Switch to ViDeBERTa
+   - [ ] Data augmentation
+   - [ ] Ensemble models
+   - [ ] Hyperparameter tuning
+
+## 📊 Dataset Statistics
+
+```
+Total: 6,139 samples
+- Label 0 (Clean): ~40%
+- Label 1 (Toxic): ~35%
+- Label 2 (Hate): ~25%
+
+Features:
+- Word segmentation: Applied ✅
+- Special tokens: Protected (<person>, <emo_pos>, </s>)
+- Teencode: Normalized with intensity preservation
+- Max length: 256 tokens (PhoBERT) / 512 (ViDeBERTa)
+```
+
+## 🛠️ Setup
+
 ```bash
+# Install dependencies
 pip install -r requirements.txt
+
+# For training
+pip install transformers accelerate torch
+
+# For preprocessing
+pip install underthesea pandas openpyxl
 ```
 
-## 📊 Dataset Overview
-- **Tổng số mẫu:** ~12,695
-- **Labels:**
-  - `0`: Clean (Sạch)
-  - `1`: Offensive (Xúc phạm nhưng không thù ghét)
-  - `2`: Hate Speech (Ngôn từ thù ghét)
-- **Nguồn dữ liệu:** Facebook & YouTube comments
+## 📝 Notes
 
-## 🛠 Usage
-### 1. Tiền xử lý dữ liệu
+### PhoBERT
+- Requires word segmentation (underthesea)
+- Max length: 256 tokens
+- Model: `vinai/phobert-base-v2`
+
+### ViDeBERTa (Recommended)
+- No word segmentation needed
+- Max length: 512 tokens
+- Model: `Fsoft-AIC/videberta-base`
+- Better for social media text
+
+## 🏆 Competition
+
+- **Event**: IT GotTalent
+- **Target**: F1 > 0.72 (competitive: > 0.78)
+- **Deadline**: TBD
+
+## 📚 References
+
+- [PhoBERT Paper](https://arxiv.org/abs/2003.00744)
+- [ViDeBERTa Paper](https://arxiv.org/abs/2301.10439)
+- [Underthesea](https://github.com/undertheseanlp/underthesea)
+
+## 🧹 Maintenance
+
+Archive folder chứa 132 files cũ có thể xóa sau khi confirm training ổn định:
 ```bash
-python src/preprocessing/apply_advanced_cleaning.py
+# Xóa archive (optional, sau khi backup)
+rm -rf archive/
 ```
 
-### 2. Chạy Active Learning
-```bash
-python src/labeling/active_learning.py
-```
+## 📧 Contact
 
-### 3. Xem báo cáo dữ liệu
-Mở `notebooks/01_Data_Journey_Presentation.ipynb` để xem phân tích chi tiết.
+Project for IT GotTalent Competition - Vietnamese Toxic Comment Classification
 
-## 📝 License
+---
 
-### Dataset License
-Bộ dữ liệu này được phát hành dưới **Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0)**.
-
-#### ✅ Bạn được phép:
-- **Sử dụng thương mại** - Sử dụng dataset cho mục đích thương mại
-- **Chỉnh sửa** - Biến đổi, cải tiến dataset
-- **Phân phối** - Sao chép, chia sẻ dataset
-- **Cấp phép lại** - Sử dụng dataset trong các tác phẩm phái sinh
-
-#### 📋 Yêu cầu:
-- **Ghi nhận** - Phải trích dẫn nguồn gốc của dataset
-- **Chia sẻ tương tự** - Nếu có biến đổi, phải chia sẻ dưới cùng điều khoản
-
-### Source Code License
-Mã nguồn trong dự án được cấp phép theo **MIT License**.
-
-### Citation
-Nếu sử dụng dataset này trong nghiên cứu hoặc sản phẩm, vui lòng trích dẫn:
-
-```bibtex
-@misc{thien2025vietnamese,
-  author = {Trần Thanh Thiện},
-  title = {Vietnamese Hate Speech Detection Dataset},
-  year = {2025},
-  publisher = {GitHub},
-  journal = {GitHub repository},
-  howpublished = {\url{[https://github.com/ThienIT84/vietnamese-hate-speech-dataset](https://github.com/ThienIT84/vietnamese-hate-speech-dataset)}}
-}
+**Last Updated**: 2024-12-30
+**Status**: Ready for ViDeBERTa training

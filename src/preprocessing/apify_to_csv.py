@@ -1,6 +1,11 @@
-# apify_to_dataset_ultimate_2025.py
-# PHIÊN BẢN 10/10 + BONUS ĐIỂM – ĐÃ DÙNG CHO 5 ĐỒ ÁN A+ 2025
-# CẬP NHẬT: Import advanced_text_cleaning để dùng chung teencode dictionary (251 từ)
+# apify_to_csv.py
+# CẬP NHẬT: Tạo dataset với context (title </s> comment) theo guideline gán nhãn V4.0
+# Format output: input_text với cấu trúc "title </s> comment"
+# Sử dụng advanced_text_cleaning và emoji mapping
+# Project root path
+from pathlib import Path
+PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+
 
 import json
 import pandas as pd
@@ -10,14 +15,121 @@ import re
 from datetime import datetime
 from tqdm import tqdm
 from collections import Counter
+from transformers import AutoTokenizer
 
 # Import advanced text cleaning module
-from advanced_text_cleaning import advanced_clean_text, TEENCODE_DICT
+from src.preprocessing.advanced_text_cleaning import advanced_clean_text, TEENCODE_DICT
+
+# Load PhoBERT tokenizer để truncate đúng
+try:
+    tokenizer = AutoTokenizer.from_pretrained("vinai/phobert-base")
+except:
+    print("⚠️ Không load được PhoBERT tokenizer, sử dụng word split thay thế")
+    tokenizer = None
+
+# ===================== EMOJI MAPPING =====================
+EMOJI_MAP = {
+    '🏳️‍🌈': ' đồng tính ',
+    '🏳️‍⚧️': ' chuyển giới ',
+    '🌈': ' lgbt ',
+    '👨‍❤️‍💋‍👨': ' nam yêu nam ',
+    '👩‍❤️‍💋‍👩': ' nữ yêu nữ ',
+    '👬': ' nam yêu nam ',
+    '👭': ' nữ yêu nữ ',
+    '❤️': ' yêu ',
+    '💕': ' thương ',
+    '💖': ' tình yêu ',
+    '😘': ' hôn ',
+    '😍': ' thích ',
+    '🥰': ' yêu thương ',
+    '💔': ' chia tay ',
+}
 
 # ===================== UTILS =====================
-def normalize_text(text):
-    """Normalize text sử dụng advanced cleaning pipeline"""
-    return advanced_clean_text(text)
+def clean_text_with_emoji(text):
+    """
+    Bước 1: Thay emoji thành text TRƯỚC khi clean
+    Bước 2: Xóa hashtags spam
+    Bước 3: Apply advanced_clean_text (bao gồm teencode normalization)
+    """
+    if not isinstance(text, str) or not text.strip():
+        return ""
+    
+    # 1. Thay emoji TRƯỚC
+    for emoji, replacement in EMOJI_MAP.items():
+        text = text.replace(emoji, replacement)
+    
+    # 2. Xóa TOÀN BỘ hashtags (spam + thông thường)
+    text = re.sub(r'#[a-zA-Z0-9_àáảãạăắằẳẵặâấầẩẫậđèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵ]+', ' ', text)
+    
+    # 3. Apply advanced cleaning (teencode + tất cả)
+    text = advanced_clean_text(text)
+    
+    return text
+
+
+def build_input_text(title, comment, max_total_length=256):
+    """
+    Format: title </s> comment
+    Truncate hierarchical: title tối đa 50 tokens, tổng ≤256 tokens
+    Theo guideline: ngữ cảnh (title/post) + </s> + comment
+    """
+    if not title or not title.strip():
+        title = ''
+    if not comment or not comment.strip():
+        comment = ''
+    
+    title = str(title).strip()
+    comment = str(comment).strip()
+    
+    # Nếu không có title, chỉ trả về comment
+    if not title:
+        if tokenizer:
+            comment_tokens = tokenizer.tokenize(comment)
+            if len(comment_tokens) > max_total_length:
+                comment_tokens = comment_tokens[:max_total_length]
+                comment = tokenizer.convert_tokens_to_string(comment_tokens)
+        return comment
+    
+    # Có title: tokenize và truncate
+    if tokenizer:
+        title_tokens = tokenizer.tokenize(title)
+        comment_tokens = tokenizer.tokenize(comment)
+        
+        # Truncate title nếu > 50 tokens
+        max_title_len = 50
+        if len(title_tokens) > max_title_len:
+            title_tokens = title_tokens[:max_title_len]
+            title = tokenizer.convert_tokens_to_string(title_tokens)
+        
+        # Separator: </s>
+        sep = ' </s> '
+        sep_tokens = tokenizer.tokenize(sep)
+        
+        # Tính comment max length
+        available_for_comment = max_total_length - len(title_tokens) - len(sep_tokens)
+        
+        # Truncate comment nếu cần
+        if len(comment_tokens) > available_for_comment and available_for_comment > 0:
+            comment_tokens = comment_tokens[:available_for_comment]
+            comment = tokenizer.convert_tokens_to_string(comment_tokens)
+        
+        # Combine
+        input_text = f"{title}{sep}{comment}"
+    else:
+        # Fallback: dùng word count
+        title_words = title.split()
+        if len(title_words) > 50:
+            title = ' '.join(title_words[:50])
+        
+        input_text = f"{title} </s> {comment}"
+        
+        # Simple truncate by words
+        words = input_text.split()
+        if len(words) > max_total_length:
+            input_text = ' '.join(words[:max_total_length])
+    
+    return input_text
 
 def clean_text(text):
     """Basic cleaning (giữ lại cho backward compatibility)"""
@@ -26,6 +138,7 @@ def clean_text(text):
     text = re.sub(r'http[s]?://\S+|www\.\S+', ' ', text)
     text = re.sub(r'\s+', ' ', text).strip()
     return text
+
 
 def make_id(apify_id, text):
     if apify_id: return str(apify_id)
@@ -64,6 +177,8 @@ def parse_count(value):
         return int(float(value.replace(',', '')))
     except:
         return 0
+
+
 
 # Emoji pattern for detection
 EMOJI_PATTERN = re.compile("["
@@ -150,6 +265,7 @@ def convert_apify_to_master(input_dir, platform):
             items = data.get('items') if isinstance(data, dict) else data
             
             for item in items:
+                # Lấy raw text (comment)
                 raw_text = (item.get('text') or item.get('comment') or 
                            item.get('message') or item.get('content') or '')
                 if len(raw_text.strip()) < 5: continue
@@ -157,11 +273,19 @@ def convert_apify_to_master(input_dir, platform):
                 # Skip nested replies
                 if item.get('parentId'): continue
                 
-                clean_raw = clean_text(raw_text)
-                clean_norm = normalize_text(clean_raw)
+                # Lấy post title/context
+                post_title = (item.get('postTitle') or item.get('title') or 
+                             item.get('videoTitle') or '')
                 
-                # Skip nếu cleaned text rỗng (chỉ có URL hoặc HTML)
-                if len(clean_raw.strip()) < 3: continue
+                # Clean comment và title với emoji mapping
+                clean_comment = clean_text_with_emoji(raw_text)
+                clean_title = clean_text_with_emoji(post_title)
+                
+                # Skip nếu cleaned text rỗng
+                if len(clean_comment.strip()) < 3: continue
+                
+                # Build input_text với context: title </s> comment
+                input_text = build_input_text(clean_title, clean_comment)
                 
                 # Topic: Ưu tiên từ filename, fallback về auto-detect
                 topic = file_topic
@@ -173,18 +297,24 @@ def convert_apify_to_master(input_dir, platform):
                         str(item.get('pageName') or ''),
                         str(item.get('postUrl') or '')
                     ])
-                    topic = auto_topic(clean_norm, meta_text)
+                    topic = auto_topic(clean_comment, meta_text)
                 
                 topic_counter[topic] += 1
                 
                 records.append({
-                    # ID & Text
+                    # ID & Text - FORMAT MỚI cho training
                     'id': make_id(item.get('id'), raw_text),
-                    'text': raw_text.strip(),
-                    'cleaned_text': clean_raw,
-                    'cleaned_text_norm': clean_norm,
+                    'input_text': input_text,  # ⭐ CỘT CHÍNH để gán nhãn và train
                     
-                    # Platform
+                    # Raw data (để tham khảo)
+                    'raw_comment': raw_text.strip(),
+                    'raw_title': post_title.strip() if post_title else '',
+                    
+                    # Cleaned data (để phân tích)
+                    'cleaned_comment': clean_comment,
+                    'cleaned_title': clean_title,
+                    
+                    # Platform & Source
                     'source_platform': platform,
                     'source_url': item.get('postUrl') or item.get('url') or '',
                     
@@ -197,22 +327,16 @@ def convert_apify_to_master(input_dir, platform):
                     'replies_count': parse_count(item.get('repliesCount') or 0),
                     
                     # Features
-                    'char_length': len(clean_raw),
-                    'word_count': len(clean_norm.split()),
+                    'char_length': len(clean_comment),
+                    'word_count': len(clean_comment.split()),
                     'has_emoji': bool(EMOJI_PATTERN.search(raw_text)),
                     
                     # Topic
                     'topic': topic,
                     
-                    # Labeling
+                    # Labeling (để gán nhãn)
                     'label': None,
-                    'annotator_id': None,
-                    'confidence': None,
-                    'is_crosscheck': False,
-                    
-                    # Prediction
-                    'prediction': None,
-                    'pred_prob_toxic': None,
+                    'note': '',  # Ghi chú khi gán nhãn
                 })
         except Exception as e:
             print(f"[!] Lỗi {file}: {e}")
@@ -225,8 +349,9 @@ def convert_apify_to_master(input_dir, platform):
     df['timestamp'] = pd.to_datetime(df['timestamp'], errors='coerce')
     
     # Kiểm tra file master đã tồn tại chưa
-    os.makedirs('final_dataset', exist_ok=True)
-    master_file = f"final_dataset/{platform.lower()}_master.csv"
+    output_dir = os.path.join(os.path.dirname(input_dir), 'processed')
+    os.makedirs(output_dir, exist_ok=True)
+    master_file = os.path.join(output_dir, f"{platform.lower()}_master.csv")
     
     if os.path.exists(master_file):
         print(f"[+] Tìm thấy file master hiện có: {master_file}")
@@ -238,9 +363,9 @@ def convert_apify_to_master(input_dir, platform):
         df = pd.concat([df_existing, df], ignore_index=True)
         print(f"[+] Sau khi gộp: {len(df):,} bình luận")
     
-    # Remove duplicates
+    # Remove duplicates theo input_text (vì đây là cột chính để train)
     before = len(df)
-    df.drop_duplicates(subset=['cleaned_text_norm'], inplace=True)
+    df.drop_duplicates(subset=['input_text'], inplace=True)
     after_text = len(df)
     df.drop_duplicates(subset=['id'], inplace=True)
     after = len(df)
@@ -251,46 +376,95 @@ def convert_apify_to_master(input_dir, platform):
     
     # Save
     df.to_csv(master_file, index=False, encoding='utf-8-sig')
-    backup_file = f"final_dataset/{platform.lower()}_backup_{datetime.now():%Y%m%d_%H%M%S}.csv"
+    
+    # Backup với timestamp
+    backup_file = os.path.join(output_dir, f"{platform.lower()}_backup_{datetime.now():%Y%m%d_%H%M%S}.csv")
     df.to_csv(backup_file, index=False, encoding='utf-8-sig')
     
+    # Save parquet (nén tốt hơn)
     parquet_file = master_file.replace('.csv', '.parquet')
     df.to_parquet(parquet_file, index=False, compression='gzip')
     
     print(f"\nHOÀN TẤT {platform.upper()}!")
     print(f"   → Master: {master_file} ({len(df):,} bình luận)")
+    print(f"   → Format: input_text = 'title </s> comment'")
     print(f"   → Topic distribution:")
     for t, c in topic_counter.most_common(8):
         print(f"      • {t}: {c:,}")
+    
+    # Hiển thị mẫu
+    print(f"\n   → Mẫu input_text đầu tiên:")
+    for idx in range(min(3, len(df))):
+        print(f"      [{idx+1}] {df.iloc[idx]['input_text'][:100]}...")
     
     return df
 
 # ===================== RUN =====================
 if __name__ == "__main__":
-    print("APIFY → MASTER DATASET ULTIMATE 2025")
-    print("="*70)
+    print("="*80)
+    print("APIFY → DATASET VỚI CONTEXT (title </s> comment)")
+    print("Phiên bản: V4.0 - Theo guideline gán nhãn")
+    print("="*80)
     print(f"📋 Using advanced_text_cleaning with {len(TEENCODE_DICT)} teencode words")
-    print("="*70)
+    print(f"🔧 Emoji mapping: {len(EMOJI_MAP)} emojis")
+    print(f"📝 Output format: input_text = 'title </s> comment'")
+    print("="*80)
+    
+    # Đường dẫn tương đối từ src/preprocessing
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    data_dir = os.path.join(script_dir, '..', '..', 'data')
+    
+    facebook_dir = os.path.join(data_dir, 'raw', 'facebook')
+    youtube_dir = os.path.join(data_dir, 'raw', 'youtube')
     
     # Xử lý Facebook
-    df_fb = convert_apify_to_master('raw/facebook/', 'Facebook')
+    if os.path.exists(facebook_dir):
+        df_fb = convert_apify_to_master(facebook_dir, 'Facebook')
+    else:
+        print(f"⚠️ Không tìm thấy: {facebook_dir}")
+        df_fb = None
     
     # Xử lý YouTube
-    df_yt = convert_apify_to_master('raw/youtube/', 'YouTube')
+    if os.path.exists(youtube_dir):
+        df_yt = convert_apify_to_master(youtube_dir, 'YouTube')
+    else:
+        print(f"⚠️ Không tìm thấy: {youtube_dir}")
+        df_yt = None
     
     # Gộp cả 2 nền tảng
     if df_fb is not None and df_yt is not None:
         master = pd.concat([df_fb, df_yt], ignore_index=True)
-        combined_file = "final_dataset/master_combined.csv"
+        
+        # Remove duplicate toàn bộ dataset
+        before = len(master)
+        master.drop_duplicates(subset=['input_text'], inplace=True)
+        master.drop_duplicates(subset=['id'], inplace=True)
+        after = len(master)
+        
+        combined_file = os.path.join(data_dir, 'processed', 'master_combined.csv')
         master.to_csv(combined_file, index=False, encoding='utf-8-sig')
         master.to_parquet(combined_file.replace('.csv','.parquet'), compression='gzip')
         
-        print(f"\n{'='*70}")
-        print(f"🎉 MASTER DATASET HOÀN CHỈNH: {len(master):,} bình luận")
+        print(f"\n{'='*80}")
+        print(f"🎉 MASTER DATASET HOÀN CHỈNH")
         print(f"   → File: {combined_file}")
+        print(f"   → Tổng: {len(master):,} bình luận unique")
         print(f"   → Facebook: {len(df_fb):,} | YouTube: {len(df_yt):,}")
-        print(f"{'='*70}")
+        print(f"   → Loại bỏ {before-after:,} trùng lặp cross-platform")
+        print(f"   → Format: input_text, label, note")
+        print(f"   → Sẵn sàng để gán nhãn theo guideline V4.0")
+        print(f"{'='*80}")
+        
+        # Mẫu cuối
+        print(f"\n📌 Mẫu dữ liệu cuối cùng (3 dòng):")
+        for idx in range(min(3, len(master))):
+            row = master.iloc[idx]
+            print(f"\n[{idx+1}] Topic: {row['topic']}")
+            print(f"    Input: {row['input_text'][:150]}...")
+            
     elif df_fb is not None:
         print(f"\n⚠️  Chỉ có Facebook data: {len(df_fb):,} bình luận")
     elif df_yt is not None:
         print(f"\n⚠️  Chỉ có YouTube data: {len(df_yt):,} bình luận")
+    else:
+        print(f"\n❌ Không tìm thấy dữ liệu nào!")

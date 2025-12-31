@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 SafeSense-Vi Preprocessing Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header .subtitle {
+            opacity: 0.9;
+            font-size: 1.2em;
+        }
+        
+        .header .version {
+            margin-top: 10px;
+            opacity: 0.8;
+            font-size: 0.9em;
+        }
+        
+        .tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+        
+        .tab:hover {
+            background: #e9ecef;
+        }
+        
+        .tab.active {
+            background: white;
+            border-bottom: 3px solid #667eea;
+            color: #667eea;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 30px;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 1.5em;
+            color: #667eea;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: 'Courier New', monospace;
+            resize: vertical;
+            transition: border-color 0.3s;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        button {
+            flex: 1;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #333;
+        }
+        
+        .btn-secondary:hover {
+            background: #e9ecef;
+        }
+        
+        .output-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .output-label {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .output-text {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            min-height: 60px;
+        }
+        
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .comparison-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .comparison-item h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .feature-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .feature-icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .feature-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .feature-desc {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        .example-list {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .example-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .example-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+        
+        .example-title {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        
+        .example-text {
+            font-family: 'Courier New', monospace;
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .stat-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .stat-label {
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .tag {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-size: 0.85em;
+            margin: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 SafeSense-Vi Preprocessing Demo</h1>
+            <div class="subtitle">Hệ thống tiền xử lý dữ liệu với Intensity Preservation</div>
+            <div class="version">Version 7.2 | Dataset: 5,329 rows | Accuracy: 99.0%</div>
+        </div>
+        
+        <div class="tabs">
+            <div class="tab active" onclick="showTab('demo')">🧪 Demo</div>
+            <div class="tab" onclick="showTab('features')">✨ Features</div>
+            <div class="tab" onclick="showTab('examples')">📝 Examples</div>
+            <div class="tab" onclick="showTab('stats')">📊 Stats</div>
+        </div>
+        
+        <!-- Tab 1: Demo -->
+        <div id="demo" class="tab-content active">
+            <div class="section">
+                <div class="section-title">🔧 Test Preprocessing</div>
+                
+                <div class="input-group">
+                    <label>📝 Nhập text để test:</label>
+                    <textarea id="inputText" rows="4" placeholder="Ví dụ: dm game nay hay vcl, makeup từ a-z, ông cháu đi chợ..."></textarea>
+                </div>
+                
+                <div class="button-group">
+                    <button class="btn-primary" onclick="processText()">🔧 Xử Lý</button>
+                    <button class="btn-secondary" onclick="clearDemo()">🗑️ Xóa</button>
+                </div>
+                
+                <div id="outputSection" class="hidden">
+                    <div class="comparison">
+                        <div class="comparison-item">
+                            <h3>📥 Input</h3>
+                            <div id="inputDisplay" class="output-text"></div>
+                        </div>
+                        <div class="comparison-item">
+                            <h3>📤 Output</h3>
+                            <div id="outputDisplay" class="output-text"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="output-box">
+                        <div class="output-label">🔍 Analysis:</div>
+                        <div id="analysisDisplay"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tab 2: Features -->
+        <div id="features" class="tab-content">
+            <div class="section">
+                <div class="section-title">✨ Key Features</div>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <div class="feature-title">Intensity Preservation</div>
+                        <div class="feature-desc">Giữ nguyên dcm, vl, vcl để bảo toàn nồng độ</div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">👤</div>
+                        <div class="feature-title">NER Whitelist</div>
+                        <div class="feature-desc">Không mask vai trò: ông cháu, ba mẹ, anh em</div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">⏰</div>
+                        <div class="feature-title">Time Format</div>
+                        <div class="feature-desc">Bảo vệ 12:30, 14:00 không bị lỗi</div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🔗</div>
+                        <div class="feature-title">Separator</div>
+                        <div class="feature-desc">Giữ &lt;/s&gt; cho PhoBERT (99.0%)</div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">😊</div>
+                        <div class="feature-title">Emoji Tags</div>
+                        <div class="feature-desc">😂 → &lt;emo_pos&gt;, 😭 → &lt;emo_neg&gt;</div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🐛</div>
+                        <div class="feature-title">Bug Fixed</div>
+                        <div class="feature-desc">a-z không bị thành "anhvậy"</div>
+                    </div>
+                </div>
+                
+                <div class="section-title">📋 Pipeline (12 Steps)</div>
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                    <ol style="line-height: 2;">
+                        <li><strong>Unicode Normalization:</strong> Chuẩn hóa dấu tiếng Việt</li>
+                        <li><strong>HTML/URL Removal:</strong> Xóa rác kỹ thuật</li>
+                        <li><strong>Hashtag Removal:</strong> Xóa spam hashtag</li>
+                        <li><strong>NER Masking:</strong> Ẩn danh tên người với whitelist</li>
+                        <li><strong>Lowercase:</strong> Chuẩn hóa chữ thường</li>
+                        <li><strong>Emoji → Tags:</strong> Chuyển emoji thành sentiment tags</li>
+                        <li><strong>Text Emoticons:</strong> Xóa :)), =)), :D</li>
+                        <li><strong>English Insults:</strong> Gắn tags cho từ tiếng Anh</li>
+                        <li><strong>Bypass Patterns:</strong> n.g.u → ngu, đ-m → đm</li>
+                        <li><strong>Leetspeak:</strong> ngu4 → ngua, ch3t → chết</li>
+                        <li><strong>Repeated Chars:</strong> nguuuu → ngu &lt;intense&gt;</li>
+                        <li><strong>Teencode:</strong> ko → không (với Intensity Preservation)</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tab 3: Examples -->
+        <div id="examples" class="tab-content">
+            <div class="section">
+                <div class="section-title">📝 Examples (Click to test)</div>
+                
+                <div class="example-list">
+                    <div class="example-item" onclick="loadExample('dm game nay hay vcl')">
+                        <div class="example-title">🎯 Intensity Preservation</div>
+                        <div class="example-text">dm game nay hay vcl</div>
+                        <div style="margin-top: 5px;">
+                            <span class="tag">dcm preserved</span>
+                            <span class="tag">vl preserved</span>
+                        </div>
+                    </div>
+                    
+                    <div class="example-item" onclick="loadExample('nguyên 1 bộ makeup từ a-z')">
+                        <div class="example-title">🐛 Fix a-z Bug</div>
+                        <div class="example-text">nguyên 1 bộ makeup từ a-z</div>
+                        <div style="margin-top: 5px;">
+                            <span class="tag">a-z preserved</span>
+                            <span class="tag">NOT anhvậy</span>
+                        </div>
+                    </div>
+                    
+                    <div class="example-item" onclick="loadExample('ông cháu đi chợ, ba mẹ đi làm')">
+                        <div class="example-title">👤 NER Whitelist</div>
+                        <div class="example-text">ông cháu đi chợ, ba mẹ đi làm</div>
+                        <div style="margin-top: 5px;">
+                            <span class="tag">ông cháu NOT masked</span>
+                            <span class="tag">ba mẹ NOT masked</span>
+                        </div>
+                    </div>
+                    
+                    <div class="example-item" onclick="loadExample('Video lúc 12:30 rất hay')">
+                        <div class="example-title">⏰ Time Format</div>
+                        <div class="example-text">Video lúc 12:30 rất hay</div>
+                        <div style="margin-top: 5px;">
+                            <span class="tag">12:30 preserved</span>
+                            <span class="tag">NOT 120</span>
+                        </div>
+                    </div>
+                    
+                    <div class="example-item" onclick="loadExample('Trần Ngọc đi học, thật tuyệt 😂😂')">
+                        <div class="example-title">😊 NER + Emoji</div>
+                        <div class="example-text">Trần Ngọc đi học, thật tuyệt 😂😂</div>
+                        <div style="margin-top: 5px;">
+                            <span class="tag">Trần Ngọc → &lt;person&gt;</span>
+                            <span class="tag">😂 → &lt;emo_pos&gt;</span>
+                        </div>
+                    </div>
+                    
+                    <div class="example-item" onclick="loadExample('nguoi ta ko biet gi ca')">
+                        <div class="example-title">📝 Teencode Neutral</div>
+                        <div class="example-text">nguoi ta ko biet gi ca</div>
+                        <div style="margin-top: 5px;">
+                            <span class="tag">nguoi → người</span>
+                            <span class="tag">ko → không</span>
+                            <span class="tag">biet → biết</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tab 4: Stats -->
+        <div id="stats" class="tab-content">
+            <div class="section">
+                <div class="section-title">📊 Dataset Statistics</div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">5,329</div>
+                        <div class="stat-label">Total Rows</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-value">99.0%</div>
+                        <div class="stat-label">Has &lt;/s&gt;</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-value">464</div>
+                        <div class="stat-label">Intensity Words</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-value">95%</div>
+                        <div class="stat-label">NER Accuracy</div>
+                    </div>
+                </div>
+                
+                <div class="section-title" style="margin-top: 30px;">🎯 Intensity Preservation</div>
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr style="border-bottom: 2px solid #e0e0e0;">
+                            <th style="padding: 10px; text-align: left;">Word</th>
+                            <th style="padding: 10px; text-align: right;">Count</th>
+                            <th style="padding: 10px; text-align: left;">Status</th>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px;"><code>vl</code></td>
+                            <td style="padding: 10px; text-align: right;">286</td>
+                            <td style="padding: 10px;"><span class="tag">✅ Preserved</span></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px;"><code>vcl</code></td>
+                            <td style="padding: 10px; text-align: right;">118</td>
+                            <td style="padding: 10px;"><span class="tag">✅ Preserved</span></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px;"><code>dm</code></td>
+                            <td style="padding: 10px; text-align: right;">40</td>
+                            <td style="padding: 10px;"><span class="tag">✅ Preserved</span></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px;"><code>đm</code></td>
+                            <td style="padding: 10px; text-align: right;">26</td>
+                            <td style="padding: 10px;"><span class="tag">✅ Preserved</span></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px;"><code>dcm</code></td>
+                            <td style="padding: 10px; text-align: right;">10</td>
+                            <td style="padding: 10px;"><span class="tag">✅ Preserved</span></td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="section-title" style="margin-top: 30px;">👤 NER Whitelist</div>
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr style="border-bottom: 2px solid #e0e0e0;">
+                            <th style="padding: 10px; text-align: left;">Phrase</th>
+                            <th style="padding: 10px; text-align: right;">Count</th>
+                            <th style="padding: 10px; text-align: left;">Status</th>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px;"><code>anh em</code></td>
+                            <td style="padding: 10px; text-align: right;">49</td>
+                            <td style="padding: 10px;"><span class="tag">✅ NOT Masked</span></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px;"><code>ông cháu</code></td>
+                            <td style="padding: 10px; text-align: right;">47</td>
+                            <td style="padding: 10px;"><span class="tag">✅ NOT Masked</span></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px;"><code>ba mẹ</code></td>
+                            <td style="padding: 10px; text-align: right;">14</td>
+                            <td style="padding: 10px;"><span class="tag">✅ NOT Masked</span></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Tab switching
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+        
+        // Load example
+        function loadExample(text) {
+            document.getElementById('inputText').value = text;
+            showTab('demo');
+            document.querySelectorAll('.tab')[0].classList.add('active');
+            processText();
+        }
+        
+        // Clear demo
+        function clearDemo() {
+            document.getElementById('inputText').value = '';
+            document.getElementById('outputSection').classList.add('hidden');
+        }
+        
+        // Process text (simplified demo - client side)
+        function processText() {
+            const input = document.getElementById('inputText').value.trim();
+            
+            if (!input) {
+                alert('⚠️ Vui lòng nhập text!');
+                return;
+            }
+            
+            // Simulate processing
+            let output = input.toLowerCase();
+            
+            // Simple replacements (demo only - real processing in Python)
+            const replacements = {
+                'nguoi': 'người',
+                'ko': 'không',
+                'biet': 'biết',
+                'mk': 'mình',
+                'tui': 'tôi',
+                'nay': 'này',
+                'wa': 'quá',
+                'lam': 'làm',
+                'di': 'đi',
+                'roi': 'rồi',
+                'nha': 'nhé',
+                'ca': 'cả',
+            };
+            
+            // Apply replacements
+            for (const [key, value] of Object.entries(replacements)) {
+                const regex = new RegExp('\\b' + key + '\\b', 'gi');
+                output = output.replace(regex, value);
+            }
+            
+            // Handle emojis
+            output = output.replace(/😂|🤣|😆/g, '<emo_pos>');
+            output = output.replace(/😭|😢|😡/g, '<emo_neg>');
+            
+            // Handle person names (simple demo)
+            output = output.replace(/\b(trần|nguyễn|lê|phạm)\s+\w+\b/gi, '<person>');
+            
+            // Display results
+            document.getElementById('inputDisplay').textContent = input;
+            document.getElementById('outputDisplay').textContent = output;
+            document.getElementById('outputSection').classList.remove('hidden');
+            
+            // Analysis
+            analyzeText(input, output);
+        }
+        
+        // Analyze text
+        function analyzeText(input, output) {
+            const analysis = [];
+            
+            // Check separator
+            if (output.includes('</s>')) {
+                analysis.push('✅ Có separator </s>');
+            }
+            
+            // Check tags
+            const tags = [];
+            if (output.includes('<emo_pos>')) tags.push('<emo_pos>');
+            if (output.includes('<emo_neg>')) tags.push('<emo_neg>');
+            if (output.includes('<person>')) tags.push('<person>');
+            if (tags.length > 0) {
+                analysis.push('✅ Tags: ' + tags.join(', '));
+            }
+            
+            // Check intensity words
+            const intensityWords = ['vcl', 'vl', 'đm', 'dm', 'dcm', 'cc'];
+            const found = intensityWords.filter(w => output.includes(w));
+            if (found.length > 0) {
+                analysis.push('✅ Intensity preserved: ' + found.join(', '));
+            }
+            
+            // Check a-z
+            if (output.includes('a-z')) {
+                analysis.push('✅ a-z preserved (NOT anhvậy)');
+            }
+            
+            // Check time format
+            const timeRegex = /\d+:\d+/g;
+            const times = output.match(timeRegex);
+            if (times) {
+                analysis.push('✅ Time format: ' + times.join(', '));
+            }
+            
+            // Check NER whitelist
+            const whitelist = ['ông cháu', 'ba mẹ', 'anh em', 'chú bác'];
+            const foundWhitelist = whitelist.filter(w => output.includes(w));
+            if (foundWhitelist.length > 0) {
+                analysis.push('✅ NER whitelist: ' + foundWhitelist.join(', '));
+            }
+            
+            // Length
+            analysis.push(`📏 Length: ${input.length} → ${output.length} chars`);
+            
+            // Display
+            const analysisHtml = analysis.map(a => `<div style="margin: 5px 0;">${a}</div>`).join('');
+            document.getElementById('analysisDisplay').innerHTML = analysisHtml;
+        }
+    </script>
+</body>
+</html>

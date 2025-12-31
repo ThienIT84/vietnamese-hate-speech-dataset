@@ -67,6 +67,9 @@ logs/
 # Exception: Keep example files or specific datasets if needed
 !data/final/final_dataset_relaxed_fixed.csv
 !data/labeled/*.csv
+!TOXIC_COMMENT/datasets/final/final_1k_thien_gold_sample.json
+!TOXIC_COMMENT/datasets/final/final_thien_gold_sample.json
+!TOXIC_COMMENT/datasets/final/labeling_task_Quang.csv
 
 # Logs
 *.log

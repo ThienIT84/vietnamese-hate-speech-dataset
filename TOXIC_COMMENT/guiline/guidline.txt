@@ -1,0 +1,712 @@
+
+
+
+# 📊 HƯỚNG DẪN GÁN NHÃN DỮ LIỆU ĐỘC HẠI - VERSION 7.2 (NUANCE EDITION)
+
+**Triết lý thiết kế**: Ngữ cảnh quyết định Nhãn (Contextual Intelligence). Ưu tiên phân loại dựa trên **Ý định (Intent)** và **Hành vi ngôn ngữ (Pragmatics)**.
+
+---
+
+## 🛡️ NGUYÊN TẮC 4: HỆ THỐNG PHÂN LOẠI ĐẠI TỪ, GIA ĐÌNH & CHẾ TÀI
+
+Đây là khung logic để xử lý các câu "vùng xám", phân cấp dựa trên sự tương tác giữa thực thể và ngữ cảnh.
+
+### 4.1. Nhãn 0: Nhóm Tường thuật & Công lý Văn minh (Contextual Clean)
+
+- **Tường thuật khách quan (Narrative Fact)**: Cung cấp thông tin đã xảy ra hoặc kiến thức pháp luật, không có ý thù ghét.
+    
+    - _Dấu hiệu_: Nghe nói, vụ đó, đã bị, hình như, theo luật...
+        
+    - _Ví dụ_: "Hình như vụ đó tên này đã bị **tử hình** rồi."
+        
+- **Cảnh báo rủi ro (Risk Assessment)**: Dự báo hậu quả xấu để khuyên ngăn hoặc răn đe vì mục đích an toàn.
+    
+    - _Dấu hiệu_: Coi chừng, đừng, kẻo, để bảo vệ...
+        
+    - _Ví dụ_: "Về đi kẻo nó điên lên nó **giết** đấy."
+        
+- **Thân mật & Tự xưng**: Dùng đại từ bậc thấp (thằng, mày) trong quan hệ bạn bè hoặc nói về bản thân.
+    
+    - _Ví dụ_: "**Thằng** bạn tôi mới lấy vợ", "Tôi cũng là một **thằng** hay suy nghĩ."-
+- **Nguyên tắc bổ sung:** Chấp nhận các từ khóa nhạy cảm (giết, chết, tử hình) nếu mục đích là xác nhận sự thật hoặc phản biện tội ác từ góc độ người quan sát.
+    
+	- **Ví dụ** _"Không ngờ có kẻ vì 2 tỉ sẵn sàng giết con. Thật đáng sợ"_ (Lý do: Tường thuật lại sự việc và bày tỏ sự phẫn nộ văn minh).
+**4.1.C (Positive Slang)**
+**Lưu ý đặc biệt về từ "đm/dm" trong lời khen:**
+
+- **Nhãn 0 (Hư từ nhấn mạnh):** Khi đứng **sau** tính từ hoặc ở **cuối** câu.
+    
+    - _Ví dụ:_ "Hài **đm** luôn", "Giỏi **dm**". (Lúc này nó chỉ là trạng từ bổ nghĩa).
+        
+- **Nhãn 1 (Tiền tố độc hại):** Khi đứng **đầu** câu làm tiền tố cảm thán.
+    
+    - _Ví dụ:_ "**Đm** chị hài vcl". (Lúc này nó là tiếng chửi thề mở đầu, mang sắc thái phản cảm).
+### 4.2. Nhãn 1: Nhóm Công kích & Mạt sát Cá nhân (Targeted Offensive)
+
+- **Công thức Pronoun Trigger**: Sử dụng đại từ bậc thấp nhằm hạ thấp nhân thân đối phương khi đang phê phán.
+    
+    - _Công thức_: `[Thằng/Mày/Con]` + `[Phê bình/Mỉa mai/Đòi phạt]`.
+        
+    - _Ví dụ_: "**Thằng** này nên đi tù đi cho chừa."
+        
+- **Mạt sát trí tuệ/sản phẩm**: Dùng từ ngữ tiêu cực mạnh hoặc từ tục để xả giận.
+    
+    - _Ví dụ_: "Ngu vcl", "Video rác", "Phim như hãm".
+### 4.2 D. Chửi thề tiêu cực
+Tại đây, bạn cần khẳng định sắc thái **"Xả giận/Mạt sát"** của các từ này để mô hình không bị nhầm lẫn với lời khen.
+
+- **Nội dung chỉnh sửa:** Thêm "vãi lồn", "vãi cả lồn" và "đéo" vào danh sách từ khóa kèm ví dụ tiêu cực.
+    
+    - **Ví dụ 2 (Sửa lại):** "Làm ăn như cái **đéo** gì vậy, làm tốn thời gian của khách." (Nhãn 1 - Thể hiện thái độ bất cần, thô lỗ).
+        
+    - **Ví dụ bổ sung:** "Nội dung tởm **vãi cả lồn**, rác rưởi thật sự." (Nhãn 1 - Mạt sát sản phẩm bằng từ tục).
+**Quy tắc 4.2.E - Phân cấp hình thái (Morphological Gradient):**
+
+- **Nhóm Biến thể/Viết tắt (đm, vcl, vl, vđ, éo):** Được hưởng ngoại lệ **Positive Slang** (Nhãn 0) nếu đi kèm tính từ tích cực. Hình thái này phản ánh tính "khẩu ngữ" và "suồng sã".
+    
+- **Nhóm Nguyên bản/Đầy đủ (địt mẹ, vãi lồn, đéo, địt cụ):** **KHÔNG** áp dụng ngoại lệ. Cố định ở mức **Nhãn 1** hoặc cao hơn. Việc dùng từ đầy đủ thể hiện ý định sử dụng ngôn từ cực đoan, vi phạm chuẩn mực văn minh tối thiểu bất kể ngữ cảnh khen hay chê.
+### 4.3. Nhãn 2: Nhóm Cực đoan & Thù ghét (Hate & Dangerous)
+
+- **Tấn công Gia đình (Family Attack)**: Nhục mạ huyết thống hoặc lôi người thân đối phương vào để hạ nhục.
+    
+    - _Ví dụ_: "**Ba mẹ** mày dạy thế à?", "Kêu **ba mẹ** mày ra đây xin lỗi".
+        
+- **Kích động & Hả hê (Incitement)**: Cổ xúy bạo lực hoặc vui sướng trước cái chết của người khác.
+    
+    - _Ví dụ_: "**Xiên** chết nó đi", "Loại này bị **giết** là đáng đời lắm".
+        
+- **Kỳ thị danh tính**: Tấn công trực diện vào vùng miền, giới tính hoặc khuyết tật.
+    
+    - _Ví dụ_: "Bọn **Bắc kỳ**", "Lũ **bê đê** bệnh hoạn".
+4.3.D: 
+**Quy tắc "Vạch kẻ đỏ" Phi nhân hóa:**
+- Mọi hành vi ví người với động vật nhằm hạ thấp trí tuệ/nhân phẩm đều là **Nhãn 2**.
+    
+- **Từ khóa bổ sung:** `óc c`, `óc chó`, `con gà`, `sủa`, `biết gì`.
+    
+- **Ví dụ:** "Hay vl **mấy con gà biết gì**" $\rightarrow$ **Nhãn 2**. (Lời khen không cứu được hành vi hạ nhục trí tuệ).
+### 📝 BẢNG TỔNG HỢP NHANH 
+
+| **Tình huống**                              | **Ví dụ điển hình**                   | **Nhãn**                                                              | **Rationale (Lý do kĩ thuật)**                        |
+| ------------------------------------------- | ------------------------------------- | --------------------------------------------------------------------- | ----------------------------------------------------- |
+| **Khen ngợi**                               | "Giỏi **vcl**, đỉnh **vđ**"           | **0**                                                                 | **Positive Slang**: Từ tục là trạng từ nhấn mạnh.     |
+| **Tường thuật**                             | "Hình như nó bị **tử hình** rồi"      | **0**                                                                 | **Narrative Fact**: Xác nhận thông tin thực tế.       |
+| **Cảnh báo**                                | "Coi chừng nó **giết** đấy"           | **0**                                                                 | **Risk Assessment**: Khuyên bảo vì sự an toàn.        |
+| **Chế tài sạch**                            | "Nên cho đi **tù**/phạt nặng"         | **0**                                                                 | **Civil Justice**: Đòi công lý bằng ngôn từ văn minh. |
+| **Công kích**                               | "**Thằng** này nên đi tù"             | **1**                                                                 | **Pronoun Trigger**: Công kích nhân thân.             |
+| **Án tử**                                   | "Nên **tử hình** loại này"            | **2**                                                                 | **Incitement**: Kêu gọi bạo lực cực đoan.             |
+| **Gia đình**                                | "**Ba mẹ** mày dạy thế à"             | **2**                                                                 | **Family Attack**: Tấn công huyết thống.              |
+| **Phi nhân hóa**                            | "Béo như **lợn**, **óc chó**"         | **2**                                                                 | **Dehumanization**: Súc vật hóa con người.            |
+| **Ủng hộ hành vi cực đoán với cả nhân**     | bán nó sang campuchia không nói nhiều | 2                                                                     |                                                       |
+| "Giỏi **đm** luôn"                          | **0**                                 | **Positive Slang:** Viết tắt nhấn mạnh sự tán thưởng.                 |                                                       |
+| "Giỏi **địt mẹ** luôn"                      | **1**                                 | **Intensity Override:** Từ đầy đủ mang nồng độ phản cảm cao.          |                                                       |
+| "Thằng **óc c** này"                        | **2**                                 | **Dehumanization:** Viết tắt "óc c" vẫn vi phạm vạch đỏ phi nhân hóa. |                                                       |
+| "**Ổng** làm vậy là sai rồi"                | **0**                                 | **Safe Narrative:** Sử dụng đại từ ngôi thứ 3 để nhận xét hành vi.    |                                                       |
+| "Thêm quốc kang vào **nghe xong đầu thai**" | **2**                                 | **Lethal Wish:** Trù ẻo cái chết ẩn dụ.                               |                                                       |
+|                                             |                                       |                                                                       |                                                       |
+
+| **Cấu trúc câu**            | **Ví dụ**                | **Nhãn** | **Lý giải (Rationale)**                                             |
+| --------------------------- | ------------------------ | -------- | ------------------------------------------------------------------- |
+| **Khen + Trạng từ đệm**     | _"Hài vcl", "Giỏi đm"_   | **0**    | **Positive Slang:** Từ tục chỉ dùng để nhấn mạnh cái hay.           |
+| **Toxic Prefix + Khen**     | _"**Đm** chị hài vcl"_   | **1**    | **Toxic Profanity:** Mở đầu bằng từ chửi thề là phản cảm.           |
+| **Khen + Mạt sát (Gà/Chó)** | _"Hay vl mấy con gà"_    | **2**    | **Dehumanization:** Súc vật hóa người nghe.                         |
+| **Khen + Từ đầy đủ (Bẩn)**  | _"Giỏi **địt mẹ** luôn"_ | **1**    | **Intensity Override:** Hình thái đầy đủ không được hưởng ngoại lệ. |
+
+# 🟢 NHÃN 0: CLEAN (VERSION 7.0 - CẬP NHẬT VÍ DỤ CHI TIẾT)
+
+### ✅ A. Phẫn nộ Tư pháp Văn minh (Civil Indignation)
+
+> **Quy tắc:** Đòi hỏi công lý nhưng tập trung vào **Hành vi** và **Pháp luật**. Tuyệt đối không dùng đại từ hạ thấp (thằng, mày) hay từ để **kêu gọi/thù ghét**"..
+
+- **Ví dụ 1:** "Hành vi trộm cắp này cần phải bị truy tố trước pháp luật."
+    
+- **Ví dụ 2:** "Hy vọng cơ quan chức năng xử lý đúng người đúng tội để làm gương."
+    
+- **Ví dụ 3:** "Chủ quán cần phải bồi thường thiệt hại và chịu trách nhiệm về việc mình đã làm."
+    
+- **Ví dụ 4:** "Cần có chế tài xử phạt nặng hơn cho những trường hợp vi phạm giao thông như thế này."
+    
+
+---
+
+### ✅ B. Trần thuật & Cảnh báo rủi ro (Narrative & Risk)
+
+> **Quy tắc:** Cung cấp thông tin khách quan hoặc lời khuyên bảo vệ an toàn. Máy cần học đây là sự **Quan tâm**, không phải thù ghét.
+
+- **Ví dụ 1:** "Khu vực này an ninh kém, mọi người đi qua đây nên chú ý tài sản nhé."
+    
+- **Ví dụ 2:** "Nghe báo đài đưa tin là nghi phạm đã bị bắt ngay trong đêm rồi."
+    
+- **Ví dụ 3:** "Đừng có dại mà đi vào đó một mình lúc đêm khuya, nguy hiểm lắm đấy."
+    
+- **Ví dụ 4:** "Vụ tai nạn này làm kẹt xe kéo dài cả cây số, mọi người nên tìm đường khác mà đi."
+    
+
+---
+
+### ✅ C. Positive Slang (Trạng từ nhấn mạnh tích cực)
+
+> ****Quy tắc:** Từ tục (vcl, vãi lồn, vãi cả lồn) hoặc từ lóng (éo, đéo) nhưng đóng vai trò là **Trạng từ chỉ mức độ** đi kèm với tính từ/động từ **Khen ngợi** hoặc **Cảm thán tích cực**.
+
+- **Ví dụ 1:** "Anh này hát hay **vcl**, nghe nổi hết cả da gà luôn."
+    
+- **Ví dụ 2:** "Nhìn bộ đồ này chất **vãi**, bạn mua ở đâu thế chỉ mình với?"
+    
+- **Ví dụ 3:** "Đội tuyển Việt Nam hôm nay đá bóng khét **lẹt** luôn, xem mà sướng!"
+    
+- **Ví dụ 4:** "Ý tưởng của bạn đỉnh **vđ**, không ngờ lại có cách xử lý thông minh như vậy."
+    
+- **Ví dụ 5:** _"Khịa thâm **vãi lồn**, cay mà **éo** biết nói như nào."_ (Lý do: Khen ngợi sự sắc sảo, "éo" dùng để nhấn mạnh sự bất lực hài hước).
+    
+- **Ví dụ 6:** _"Thề nghĩ bọn fan mắc cười **vãi lồn**."_ (Lý do: Tán thưởng sự hài hước).
+    
+- **Ví dụ 7:** _"Cuốn **vãi cả lồn**, xem không rời mắt."_ (Lý do: Khen ngợi nội dung hấp dẫn).
+---
+
+### ✅ D. Xưng hô Thân mật / Tự xưng
+
+> **Quy tắc:** Dùng "thằng, mày, nó" nhưng trong quan hệ bạn bè, gia đình hoặc nói về bản thân. Không chứa sự mạt sát.
+
+- **Ví dụ 1:** "**Thằng** em mình nó mới thi đỗ đại học, cả nhà ai cũng mừng."
+    
+- **Ví dụ 2:** "Này **mày** ơi, tối nay có rảnh không đi làm ly cà phê tí đi."
+    
+- **Ví dụ 3:** "**Bản thân** mình cũng là một **thằng** từng thất bại nên mình rất hiểu cảm giác của bạn."
+    
+- **Ví dụ 4:** "**Nó** (người bạn thân) vừa mới tặng mình món quà này nhân dịp sinh nhật đây."
+---
+
+### 📊 BẢNG "SOI" NHANH ĐỂ CHỐT NHÃN (DÀNH CHO NHÓM)
+
+| **Nội dung câu**                   | **Nhãn**                            | **Lý do chuyên môn (Logic)**                        |                                                                           |
+| ---------------------------------- | ----------------------------------- | --------------------------------------------------- | ------------------------------------------------------------------------- |
+| "Nên cho đi tù."                   | **0**                               | Đòi công lý văn minh, thực thể trung tính.          |                                                                           |
+| "**Thằng** này nên đi tù."         | **1**                               | **Vi phạm Rule 4:** Có đại từ hạ thấp khi phê bình. |                                                                           |
+| "**Ba mẹ** nó nên dạy lại nó."     | **2**                               | **Vạch kẻ đỏ:** Tấn công vào gia đình/huyết thống.  |                                                                           |
+| "Học giỏi **vãi lồn**."            | **0**                               | **Positive Slang:** Từ tục để khen ngợi.            |                                                                           |
+| "Ngu **vãi lồn**."                 | **1**                               | **Profanity:** Từ tục để xúc phạm trí tuệ.          |                                                                           |
+| **Xả giận, than phiền về sự việc** | _"dm mưa hoài", "dm quảng cáo lắm"_ | **1**                                               | **Negative Profanity:** Dùng từ tục để biểu thị thái độ khó chịu.         |
+| **Công kích nhân thân cá nhân**    | _"dm thằng này hãm"_                | **1**                                               | **Pronoun Trigger:** Kết hợp đại từ hạ thấp và từ tục để mạt sát cá nhân. |
+| **Tấn công gia đình/huyết thống**  | _"dm ba mẹ mày dạy à"_              | **2**                                               | **Family Attack:** Lôi người thân vào để nhục mạ.                         |
+| **Kỳ thị danh tính/vùng miền**     | _"dm mấy thằng parky"_              | **2**                                               | **Hate Speech:** Tấn công vào nguồn gốc/vùng miền.                        |
+|**Phi nhân hóa/Súc vật hóa**|_"dm đồ óc c"_|**2**|**Dehumanization:** Súc vật hóa con người.|
+---
+
+
+---
+
+# 🟡 NHÃN 1: OFFENSIVE (VERSION 7.2 - CHI TIẾT & CHUYÊN NGHIỆP)
+
+### ✅ A. Công kích cá nhân & Màng lọc đại từ (Pronoun Trigger)
+
+> **Quy tắc:** Sử dụng đại từ bậc thấp (mày, thằng, con, lũ, nó) kết hợp với các động từ/tính từ tiêu cực nhằm hạ thấp nhân thân, dạy đời hoặc mỉa mai đối phương.
+
+- **Ví dụ 1:** "**Thằng** này nói chuyện nghe hãm thực sự, chẳng ra đâu vào đâu."
+    
+- **Ví dụ 2:** "**Mày** nín đi cho sạch nước, đừng có ở đó mà ra vẻ dạy đời người khác."
+    
+- **Ví dụ 3:** "**Lũ** này chỉ giỏi cào bàn phím chứ thực tế chẳng làm được gì cho đời."
+    
+- **Ví dụ 4:** "**Con** nhỏ này nhìn cái mặt là thấy không ưa nổi rồi, hãm tài."
+    
+### ✅ B. Phẫn nộ Độc hại (Toxic Outrage - NJD 2.0)
+
+> **Quy tắc:** Phê bình một hành vi sai trái (vi phạm pháp luật, đạo đức) nhưng sử dụng ngôn từ mạt sát nhân phẩm hoặc thiếu văn minh.
+
+- **Ví dụ 1:** "Hành vi của chủ quán này thật là **khốn nạn**, không thể chấp nhận được."
+    
+- **Ví dụ 2:** "Thật là loại **vô văn hóa** mới có thể hành động thiếu ý thức như thế giữa ban ngày."
+    
+- **Ví dụ 3:** "Loại người **mất dạy** này cần phải được xử lý nghiêm để làm gương cho kẻ khác."
+    
+- **Ví dụ 4:** "Hành động **hèn hạ** như thế này làm xấu mặt cả một tập thể lớn."
+    
+
+---
+
+### ✅ C. Miệt thị ngoại hình & Trí tuệ (Mild Shaming)
+
+> **Quy tắc:** Chê bai đặc điểm cơ thể hoặc khả năng tư duy của cá nhân bằng các tính từ tiêu cực mạnh (nhưng chưa đến mức súc vật hóa - Nhãn 2).
+
+- **Ví dụ 1:** "Nhìn cái tướng lùn tịt thế kia mà cũng đòi làm người mẫu ảnh, nực cười."
+    
+- **Ví dụ 2:** "Đầu óc kiểu gì mà có thể làm ra cái video **ngu ngốc** đến mức này không biết."
+    
+- **Ví dụ 3:** "Người gì mà xấu đau xấu đớn, nhìn là thấy xúc phạm người xem rồi."
+    
+- **Ví dụ 4:** "Đúng là đồ **vô não**, nói đi nói lại mãi mà vẫn không khôn ra được chút nào."
+    
+
+---
+
+### ✅ D. Chửi thề tiêu cực (Negative Profanity)
+
+> **Quy tắc:** Sử dụng từ tục (Profanity/Teencode) để xả giận, biểu thị sự khó chịu hoặc nhắm vào một sự vật/sự việc tiêu cực.
+
+- **Ví dụ 1:** "**Đm**, xem cái clip này mà muốn tăng xông vì sự vô lý của nó."
+    
+- **Ví dụ 2:** "Làm ăn như cái **đéo** gì vậy, làm tốn thời gian và tiền bạc của khách hàng."
+    
+- **Ví dụ 3:** "**Hãm lồn** thật sự, không hiểu sao những nội dung rác này vẫn lên được xu hướng."
+    
+- **Ví dụ 4:** "Phim như **cl**, phí cả tiền mua vé ra rạp xem cái đống rác rưởi này."
+
+- **Ví dụ 5:** _"Nội dung tởm **vãi lồn**."_ (Lý do: Dùng từ tục đi kèm tính từ tiêu cực "tởm" để mạt sát).
+    
+- **Ví dụ 6:** _"Vãi lồn tôi đâu ra trong video của acn vậy."_ (Lý do: Xả giận, thể hiện sự khó chịu tiêu cực).
+    
+- **Ví dụ 7:** _"Ý mà bị tệ **vãi lồn**."_ (Lý do: Nhấn mạnh một sự việc tiêu cực).
+
+---
+
+### 📊 MA TRẬN PHÂN ĐỊNH RANH GIỚI (V7.2)
+
+Để nhóm của Thiện "chốt" nhãn không bị lệch, hãy dùng bảng đối chiếu ngữ cảnh này:
+
+| **Nội dung** | **Nhãn 0 (Positive/Intimate)**              | **Nhãn 1 (Offensive/Attack)**               |
+| ------------ | ------------------------------------------- | ------------------------------------------- |
+| **Xưng hô**  | "**Thằng** bạn tôi nó tốt lắm." (Kể chuyện) | "**Thằng** này nói chuyện hãm." (Công kích) |
+| **Từ tục**   | "Giỏi **vcl**, đỉnh **vđ**." (Khen ngợi)    | "Hãm **vcl**, ngu **vđ**." (Sỉ nhục)        |
+| **Góp ý**    | "Bạn nên xem lại cách cư xử." (Văn minh)    | "**Mày** nín đi cho sạch nước." (Hạ thấp)   |
+| **Sự việc**  | "Video này hơi buồn chán." (Nhận xét)       | "Cái clip này đúng là **rác**." (Mạt sát)   |
+# # 🔴 NHÃN 2: HATE & DANGEROUS (CỰC ĐOAN / NGUY HIỂM) - V7.0
+
+### 📄 1. ĐỊNH NGHĨA CHUYÊN SÂU (SAFETY OVERRIDE)
+
+**Nhãn 2** là vùng đỏ của hệ thống. Nó bao gồm các nội dung vi phạm nghiêm trọng về an toàn sinh mạng, thù ghét danh tính hoặc nhục mạ huyết thống. Tại tầng này, **Mặt chữ (Form) quan trọng hơn Ý định (Intent)**: chỉ cần chứa từ khóa vạch đỏ là tự động gán Nhãn 2.
+
+---
+
+### 🛡️ 2. CÁC PHÂN LỚP VI PHẠM CHI TIẾT
+
+**4.3.A. Zero Tolerance: Kích động & Hả hê Bạo lực**
+**Nguyên tắc:** Gán Nhãn 2 cho mọi hành vi **Kích động, Trù ẻo hoặc Cổ xúy** bạo lực/cái chết.
+
+**Lưu ý Quan trọng:** **Nhãn 2 chỉ áp dụng khi có Ý định thù ghét/kích động.** Nếu câu mang tính **Tường thuật** ("Hình như đã bị tử hình rồi") hoặc **Cảnh báo rủi ro** ("Coi chừng nó giết đấy"), thì vẫn được ưu tiên gán **Nhãn 0**.
+  
+
+Việc sửa đổi này sẽ giúp người gán nhãn hiểu rõ: **Ngữ cảnh (L0) luôn ghi đè lên từ khóa Zero Tolerance (L2)**, trừ khi ngữ cảnh đó là Kích động hoặc Hả hê.
+
+#### **B. Family & Ancestry Attack (Tấn công Gia đình/Huyết thống)**
+
+Đây là điểm mới của V7.0 nhằm chặn đứng các hành vi nhục mạ nguồn gốc.
+
+- **Quy tắc**: Lôi ba mẹ, dòng họ, phụ huynh hoặc người thân của đối phương vào cuộc tranh luận để mỉa mai, dạy đời hoặc yêu cầu họ chịu trách nhiệm.
+    
+- **Ví dụ**: "**Ba mẹ** mày dạy thế à?", "Kêu **ba mẹ** mày ra đây mà xin lỗi", "Cái đồ không được **gia đình** dạy dỗ".
+    
+
+#### **C. Identity-Based Hate (Thù ghét danh tính nhóm)**
+
+Tấn công một tập thể dựa trên các đặc điểm cố định.
+
+- **Vùng miền**: Sử dụng "Bắc kỳ", "Nam kỳ", "Cali", "Ba que" kèm thái độ miệt thị.
+    
+- **LGBT+**: Sử dụng "Bê đê", "Bóng", "Les" hoặc coi LGBT là "bệnh hoạn", "diệt vong".
+    
+- **Phi nhân hóa nhóm**: Gọi một nhóm người là "Lũ", "Bầy", "Đàn", "Súc vật".
+    
+
+#### **D. Severe Dehumanization (Phi nhân hóa/Súc vật hóa)**
+
+So sánh con người với động vật hoặc vật thể ghê tởm để nhục mạ.
+
+- **Vạch kẻ đỏ**: So sánh ngoại hình với **Động vật** (Lợn, chó, ngựa, khỉ, bò, heo).
+    
+- **Từ ngữ cực đoan**: Quái vật, kinh tởm, tởm lợm, quái thai.
+**4.2.b. Quy tắc Ẩn chủ ngữ (Zero Anaphora Attack):**
+
+- **Định nghĩa:** Câu không chứa đại từ (mày, thằng, nó...) nhưng sử dụng tính từ mạnh hoặc từ lóng miệt thị để tấn công trực diện vào trạng thái, ngoại hình hoặc hành vi của đối tượng trong ngữ cảnh.
+    
+- **Dấu hiệu Nhận biết:** > - `[Tính từ miệt thị]` + `[Mỉa mai trạng thái]`
+    
+    - `[Danh từ hoán dụ]` (Gương mặt, cái mỏ, hàm răng...) + `[Tính từ công kích]`.
+        
+- **Ví dụ:** > - "Xấu lắm loi mà còn ra vẻ." (Nhãn 1)
+    
+    - "Gương mặt hổ báo đâu rồi?" (Nhãn 1)
+        
+    - "Nhục nhã quá, nín đi." (Nhãn 1)
+---
+
+### 📊 3. BẢNG TRỌNG TÀI ĐỐI CHIẾU (PHÂN TÁCH L0, L1 & L2)
+
+| **Nội dung bình luận**         | **Nhãn** | **Lý do chuyên môn V7.0**                         |
+| ------------------------------ | -------- | ------------------------------------------------- |
+| "Nên cho đi tù."               | **0**    | Hình phạt pháp lý văn minh, ngôn từ sạch.         |
+| "**Thằng** này nên đi tù."     | **1**    | Sử dụng đại từ hạ thấp khi đòi hình phạt.         |
+| "Nên **tử hình** kẻ này."      | **2**    | **Zero Tolerance:** Có từ khóa chết (Tử hình).    |
+| "**Ba mẹ** mày chắc nhục lắm." | **2**    | **Family Attack:** Xúc phạm huyết thống/gia đình. |
+| "Bọn **LGBT** bệnh hoạn."      | **2**    | **Hate Speech:** Kỳ thị danh tính giới tính.      |
+| "Béo như **con lợn**."         | **2**    | **Dehumanization:** Súc vật hóa ngoại hình.       |
+## 🎭 XỬ LÝ NGOẠI LỆ (EXCEPTIONS)
+
+---
+
+# 🛡️ NGOẠI LỆ 1: POSITIVE SLANG (TRẠNG TỪ NHẤN MẠNH) - V7.2
+
+Trong giao tiếp trực tuyến, các từ tục (profanity) hoặc Teencode thường được tái định nghĩa công dụng để làm **Trạng từ chỉ mức độ (Adverbs of Degree)** nhằm khuếch đại sự tán thưởng, ngạc nhiên hoặc phấn khích.
+
+### **1. Bộ lọc xác thực "4 Không - 1 Có" (The Nuance Filter)**
+
+Để một câu chứa từ tục được giữ lại ở **Nhãn 0**, nó phải đáp ứng đồng thời các tiêu chí sau:
+
+- ✅ **CÓ (Positive Core):** Đi kèm trực tiếp với các tính từ/động từ tích cực: _Đỉnh, giỏi, đẹp, ngon, hay, tuyệt, xuất sắc, cháy, khét, xịn..._
+    
+- ❌ **KHÔNG (No Hostility):** Không chứa hành vi tấn công **Gia đình** (ba, mẹ...) với ý đồ nhục mạ.
+    
+- ❌ **KHÔNG (No Incitement):** Không chứa các từ khóa bạo lực với ý định **Kích động/Hả hê** (Xiên nó đi, chết đi...). _Lưu ý: Nếu là trần thuật khách quan như "Giỏi vcl, vụ đó nó bị tử hình rồi" vẫn là L0._
+    
+- ❌ **KHÔNG (No Sarcasm):** Không có dấu hiệu mỉa mai qua ngoặc kép hoặc ngữ điệu bác bỏ.
+    
+- ❌ **KHÔNG (No Negative Target):** Không sử dụng đại từ hạ thấp (**Mày/Thằng**) trong một cấu trúc đang công kích đối tượng khác.
+    
+
+---
+
+### **2. Các ví dụ điển hình (Case Studies)**
+
+Để Huy và Kiệt dễ hình dung, Thiện hãy dùng bộ ví dụ đa dạng này:
+
+- **A. Khen ngợi thuần túy:** "Anh này hát hay **vcl**, nghe nổi hết cả da gà." $\rightarrow$ **Nhãn 0**.
+    
+- **B. Khen ngợi + Thân mật:** "**Thằng** bạn tôi làm quả web này đỉnh **vđ** luôn." $\rightarrow$ **Nhãn 0**.
+    
+- **C. Khen ngợi + Trần thuật:** "Đỉnh **vcl**, nghe bảo vụ đó tên này bị **tử hình** rồi." $\rightarrow$ **Nhãn 0** (Khen + Thông tin khách quan).
+    
+- **D. Khen ngợi mỉa mai:** "Nó 'giỏi' **vcl** luôn, phá nát cả cái đồ án của nhóm." $\rightarrow$ **Nhãn 1**.
+    
+
+---
+
+### **3. Ma trận gán nhãn cập nhật (The Nuance Matrix)**
+
+| **Cấu trúc câu**          | **Ví dụ thực tế**                               | **Nhãn** | **Rationale (Lý giải chuyên môn)**                              |
+| ------------------------- | ----------------------------------------------- | -------- | --------------------------------------------------------------- |
+| **Khen nguyên bản**       | "Giỏi **vcl** luôn!"                            | **0**    | **Positive Slang:** Từ tục nhấn mạnh sự "Giỏi".                 |
+| **Khen + Thân mật**       | "**Thằng** em mình nó giỏi **vđ**."             | **0**    | **Intimacy:** Xưng hô thân thiết + Khen ngợi.                   |
+| **Khen + Tường thuật**    | "Đẹp **vãi**, nghe nói vụ đó **chết** 2 người." | **0**    | **Narrative Nuance:** Khen + Thông tin sự thật.                 |
+| **Khen + Từ tục xả giận** | "**Đm** giỏi **vcl**!"                          | **1**    | **Toxic Profanity:** Từ "**Đm**" mang năng lượng tiêu cực mạnh. |
+| **Khen + Chê**            | "Giỏi **vcl** nhưng nhìn hãm."                  | **1**    | **Contrast:** Có tính từ tiêu cực (**hãm**) phá vỡ ngoại lệ.    |
+| Khen + Kích động          | "Giỏi **vcl**, nên **xiên** nó đi."             | 2        | **Incitement:** Kêu gọi bạo lực cực đoan                        |
+
+Chào Thiện! Để bảo vệ triết lý **"Dữ liệu Nuance"** (Dữ liệu tinh tế) mà bạn đang theo đuổi cho giải **IT Got Talent**, mình đã biên soạn lại hai phần này một cách chuyên nghiệp nhất.
+
+Bản cập nhật **Version 7.2** này chính thức khôi phục khả năng phân biệt giữa **"Thông tin/Cảnh báo" (Nhãn 0)** và **"Thù ghét/Kích động" (Nhãn 2)** dựa trên các mốc neo ngữ pháp dẫn lời. Đây chính là điểm giúp PhoBERT của nhóm bạn (Thiện, Huy, Kiệt) trở nên thông minh và có giá trị nghiên cứu vượt trội.
+
+---
+
+### 🛡️ TINH CHỈNH QUY TẮC "RỦI RO & CẢNH BÁO" (V7.2 - NUANCE EDITION)
+
+Quy tắc **"The Neutral Oracle" (Kẻ tiên tri trung tính)** được chuẩn hóa để nhận diện các lời khuyên ngăn hoặc dự báo rủi ro vì mục đích an toàn.
+
+#### **1. Nhãn 0: Cảnh báo & Răn đe an toàn (Risk Assessment)**
+
+- **Định nghĩa:** Người viết đóng vai trò quan sát, giả định một hậu quả xấu để khuyên đối tượng tránh né hoặc răn đe người khác không làm việc sai.
+    
+- **Dấu hiệu Nhãn 0:** Câu mang tính giả định, khuyên nhủ: _Coi chừng, đừng, kẻo, để bảo vệ, về đi, lại bảo tại số_.
+    
+- **Ví dụ:**
+    
+    - "Đừng về nhà lúc này, nó đang điên nó **giết** mày đấy." (Lời khuyên bảo vệ mạng sống).
+        
+    - "Cứ làm loạn đi rồi nó **xiên** cho lại bảo tại số." (Lời cảnh báo hậu quả tự chuốc lấy).
+        
+    - "Đi đứng kiểu đó có ngày **tai nạn** thì khổ vợ con." (Dự báo rủi ro khách quan).
+        
+
+#### **2. Nhãn 2: Kích động & Hả hê (Incitement/Schadenfreude)**
+
+- **Định nghĩa:** Người viết trực tiếp mong muốn, cổ xúy bạo lực hoặc thể hiện sự vui sướng khi bạo lực xảy ra.
+    
+- **Quy tắc:** Mệnh lệnh bạo lực hoặc Trù ẻo cái chết = **Nhãn 2**.
+    
+- **Ví dụ:**
+    
+    - "**Xiên** chết nó đi anh em." (Kích động bạo lực).
+        
+    - "Loại này bị **xiên** là đáng đời lắm." (Hả hê trước bạo lực).
+        
+    - "Sao nó không **đâm** cho chết luôn nhỉ." (Trù ẻo mạng sống).
+        
+
+---
+
+### 🌟 NGOẠI LỆ 2: QUOTATION & NARRATIVE (V7.2 - NUANCE EDITION)
+
+Đây là trường hợp người dùng đóng vai trò là **Người kể chuyện** hoặc **Người cung cấp kiến thức**, không phải người trực tiếp gây ra thù ghét.
+
+#### **1. Điều kiện gán Nhãn 0 (Safe Narrative):**
+
+- 📍 **Cấu trúc dẫn lời/xác nhận thông tin:** "Nghe nói", "Hình như", "Xác nhận", "Báo đăng", "Đã bị", "Theo luật".
+    
+- 📍 **Ý định phản biện/Giáo dục:** Chia sẻ nỗi đau bị xúc phạm hoặc phê phán việc dùng từ ngữ độc hại.
+    
+- **Ví dụ:**
+    
+    - "**Hình như** vụ đó tên này đã bị **tử hình** rồi." (Trần thuật sự thật).
+        
+    - "Tội này **theo luật** là bị **tử hình** nha bạn." (Cung cấp kiến thức pháp luật).
+        
+    - "Nó gọi tôi là **'bê đê'** nhưng tôi không quan tâm." (Nạn nhân kể chuyện).
+        
+
+#### **2. Nhãn 2: Lợi dụng trích dẫn (Bypassing Filters):**
+
+- **Định nghĩa:** Cố tình dùng từ thù ghét/bạo lực mà không có lời dẫn khách quan hoặc không có mục đích phản biện rõ ràng.
+    
+- **Ví dụ:** "**Bắc kỳ chó**" (Dù đặt trong ngoặc kép nhưng không có lời dẫn thì vẫn là công kích).
+    
+
+---
+
+### 📊 BẢNG TỔNG KẾT SO SÁNH (TRỌNG TÀI DỮ LIỆU NUANCE)
+
+Bảng này giúp nhóm Thiện chốt các ca "khó" dựa trên cấu trúc câu thay vì chỉ quét từ khóa:
+
+| **Từ khóa**  | **Nhãn 0 (Tường thuật / Cảnh báo)**             | **Nhãn 2 (Kích động / Thù ghét)**        |
+| ------------ | ----------------------------------------------- | ---------------------------------------- |
+| **Tử hình**  | "Hình như đã bị **tử hình** rồi."               | "Nên **tử hình** loại này."              |
+| **Giết**     | "Coi chừng kẻo nó **giết** đấy." (Khuyên)       | "Sao không **giết** nó luôn đi?" (Hả hê) |
+| **Xiên**     | "Nghe nói vụ đó nó bị **xiên** ở chợ."          | "**Xiên** chết nó đi anh em."            |
+| **Chém**     | "Nghe bảo vụ đó bị **chém** đứt tay."           | "**Chém** chết nó đi cho chừa."          |
+| **Bê đê**    | "Nó chửi tôi là **bê đê**." (Kể khổ)            | "Đồ cái loại **bê đê** bệnh hoạn."       |
+| **Gia đình** | "Họ lôi cả **ba mẹ** tôi ra chửi." (Kể sự việc) | "**Ba mẹ** mày dạy thế à?" (Tấn công)    |
+|              |                                                 |                                          |
+|              |                                                 |                                          |
+
+---
+
+## 📊 DECISION TREE (CÂY QUYẾT ĐỊNH HOÀN CHỈNH)
+
+```
+BẮT ĐẦU (Câu bình luận)
+│
+├─→ 1. CÓ PHẢI TRÍCH DẪN/TƯỜNG THUẬT? (Narrative Gate)
+│   (Có lời dẫn: "Nó chửi tôi...", "Đừng dùng từ...", "Họ gọi là...")
+│   ├─→ CÓ → LABEL 0 (NGOẠI LỆ 2)
+│   └─→ KHÔNG
+│       │
+│       ├─→ 2. ĐỀ CẬP ĐẾN CÁI CHẾT? (Zero Tolerance)
+│       │   (chết, giết, tử hình, xiên, xử bắn, đăng xuất...)
+│       │   ├─→ CÓ → LABEL 2 (QUY TẮC VÀNG)
+│       │   └─→ KHÔNG
+│       │       │
+│       │       ├─→ 3. THÙ GHÉT NHÓM / **TẤN CÔNG GIA ĐÌNH**? │ (Bắc kỳ, LGBT bệnh..., **Ba mẹ mày**, **Dòng họ nhà mày**...) │ ├─→ CÓ → **LABEL 2**
+│       │       │       │
+│       │       │       ├─→ 4. PHI NHÂN HÓA NGOẠI HÌNH? (Dehumanization)
+│       │       │       │   (béo như lợn, mặt ngựa, gầy như chó...)
+│       │       │       │   ├─→ CÓ → LABEL 2
+│       │       │       │   └─→ KHÔNG
+│       │       │       │       │
+│       │       │       │       ├─→ 5. CÓ TỪ TỤC TIÊU CỰC? (Profanity)
+│       │       │       │       │   (địt, đéo, lồn, vãi...)
+│       │       │       │       │   ├─→ CÓ → KIỂM TRA EXCEPTION 1
+│       │       │       │       │   │   ├─→ Khen + Tích cực (giỏi vcl, đỉnh) → LABEL 0
+│       │       │       │       │   │   └─→ Không khen/Chửi mỉa → LABEL 1
+│       │       │       │       │   └─→ KHÔNG
+│       │       │       │       │       │
+│       │       │       │       │       ├─→ 6. CÓ XÚC PHẠM CÁ NHÂN? (Personal Attack)
+│       │       │       │       │       │   (ngu, điên, hèn, mày/thằng + thái độ tiêu cực)
+│       │       │       │       │       │   ├─→ CÓ → LABEL 1
+│       │       │       │       │       │   └─→ KHÔNG → LABEL 0```
+
+---
+
+
+```
+## 🧪 BẢNG KIỂM TRA NHANH (CHEAT SHEET V5.1)
+
+
+| **Comment**                             | **Tường thuật / Fact?** | **Ý định xấu?** | **Nhãn** | **Lý giải Nuance (V7.2)**                                    |     |             |                         |                 |          |                           |
+| --------------------------------------- | ----------------------- | --------------- | -------- | ------------------------------------------------------------ | --- | ----------- | ----------------------- | --------------- | -------- | ------------------------- |
+| "Nó chửi tôi là **Bắc kỳ**"             | **✓**                   |                 | **0**    | **Exception 2:** Nạn nhân tường thuật lại sự việc.           |     |             |                         |                 |          |                           |
+| "Thằng trộm **nên chết**"               |                         | **✓**           | **2**    | **Incitement:** Kêu gọi/mong muốn cái chết (Thù ghét).       |     |             |                         |                 |          |                           |
+| "**Theo luật** tội này bị **tử hình**"  | **✓**                   |                 | **0**    | **Narrative Fact:** Cung cấp kiến thức pháp luật khách quan. |     |             |                         |                 |          |                           |
+| "**Hình như** vụ đó bị **tử hình** rồi" | **✓**                   |                 | **0**    | **Narrative Fact:** Xác nhận thông tin thực tế đã xảy ra.    |     |             |                         |                 |          |                           |
+| "Cho **mày** 10 năm tù"                 |                         | **✓**           | **1**    | **Pronoun Trigger:** Dùng đại từ hạ thấp khi đòi hình phạt.  |     |             |                         |                 |          |                           |
+| "Nên vào tù"                            |                         |                 | **0**    | **Civil Justice:** Đòi công lý bằng ngôn từ văn minh.        |     |             |                         |                 |          |                           |
+| "Bắc kỳ toàn gian"                      |                         | **✓**           | **2**    | **Hate Speech:** Kỳ thị vùng miền (Identity Attack).         |     |             |                         |                 |          |                           |
+| "Béo như **lợn**"                       |                         | **✓**           | **2**    | **Dehumanization:** Súc vật hóa ngoại hình (Vạch đỏ).        |     |             |                         |                 |          |                           |
+| "Xấu quá"                               |                         | **✓**           | **1**    | **Mild Shaming:** Chê bai ngoại hình cá nhân.                |     |             |                         |                 |          |                           |
+| "**Giỏi** vãi lồn"                      |                         |                 | **1**    | **Exception 1:** Từ tục đóng vai trò khen ngợi tích cực.     |     |             |                         |                 |          |                           |
+| "Mày bị **thiểu năng** à?"              |                         | **✓**           | **2**    | **Ableism:** Kỳ thị dựa trên khuyết tật (Identity).          |     | **Comment** | **Tường thuật / Fact?** | **Ý định xấu?** | **Nhãn** | **Lý giải Nuance (V7.2)** |
+| "Nó chửi tôi là **Bắc kỳ**"             | **✓**                   |                 | **0**    | **Exception 2:** Nạn nhân tường thuật lại sự việc.           |     |             |                         |                 |          |                           |
+| "Thằng trộm **nên chết**"               |                         | **✓**           | **2**    | **Incitement:** Kêu gọi/mong muốn cái chết (Thù ghét).       |     |             |                         |                 |          |                           |
+| "**Theo luật** tội này bị **tử hình**"  | **✓**                   |                 | **0**    | **Narrative Fact:** Cung cấp kiến thức pháp luật khách quan. |     |             |                         |                 |          |                           |
+| "**Hình như** vụ đó bị **tử hình** rồi" | **✓**                   |                 | **0**    | **Narrative Fact:** Xác nhận thông tin thực tế đã xảy ra.    |     |             |                         |                 |          |                           |
+| "Cho **mày** 10 năm tù"                 |                         | **✓**           | **1**    | **Pronoun Trigger:** Dùng đại từ hạ thấp khi đòi hình phạt.  |     |             |                         |                 |          |                           |
+| "Nên vào tù"                            |                         |                 | **0**    | **Civil Justice:** Đòi công lý bằng ngôn từ văn minh.        |     |             |                         |                 |          |                           |
+| "Bắc kỳ toàn gian"                      |                         | **✓**           | **2**    | **Hate Speech:** Kỳ thị vùng miền (Identity Attack).         |     |             |                         |                 |          |                           |
+| "Béo như **lợn**"                       |                         | **✓**           | **2**    | **Dehumanization:** Súc vật hóa ngoại hình (Vạch đỏ).        |     |             |                         |                 |          |                           |
+| "Xấu quá"                               |                         | **✓**           | **1**    | **Mild Shaming:** Chê bai ngoại hình cá nhân.                |     |             |                         |                 |          |                           |
+| "**Giỏi** vãi lồn"                      |                         |                 | **1**    | **Exception 1:** Từ tục đóng vai trò khen ngợi tích cực.     |     |             |                         |                 |          |                           |
+| "Mày bị **thiểu năng** à?"              |                         | **✓**           | **2**    | **Ableism:** Kỳ thị dựa trên khuyết tật (Identity).          |     |             |                         |                 |          |                           |
+
+---
+
+## ⚡ QUY TRÌNH GÁN NHÃN 3 BƯỚC - VERSION 7.2 (NUANCE EDITION)
+
+### **BƯỚC 1: Quét "Cửa Tường thuật & Cảnh báo" (5 giây)**
+
+**Mục tiêu:** Nhặt ra những câu chứa từ nhạy cảm nhưng có ý tốt hoặc trung tính.
+
+- **Tìm các mốc neo:** "Nghe nói", "Hình như", "Theo luật", "Báo đăng", "Coi chừng", "Đừng kẻo...".
+    
+- **Phân tích nhanh:** Đây là kể chuyện khách quan hay lời khuyên an toàn?
+    
+- **Kết quả:** Nếu đúng $\rightarrow$ **LABEL 0** $\rightarrow$ **XONG**.
+    
+
+---
+
+### **BƯỚC 2: Quét "Vạch kẻ đỏ" (5 giây)**
+
+**Mục tiêu:** Chặn đứng các hành vi thù ghét và kích động thực sự.
+
+- **Tìm ý định xấu nhắm vào:**
+    
+    - **Cái chết:** Kêu gọi, hả hê (Tử hình đi, xiên nó, đáng đời...).
+        
+    - **Gia đình:** Nhục mạ huyết thống (Ba mẹ mày, dòng họ...).
+        
+    - **Danh tính:** Miệt thị vùng miền/LGBT (Bắc kỳ, bê đê...).
+        
+- **Kết quả:** Nếu có $\rightarrow$ **LABEL 2** $\rightarrow$ **XONG**.
+    
+
+---
+
+### **BƯỚC 3: Quét "Chuẩn mực xã hội" (5 giây)**
+
+**Mục tiêu:** Phân loại các hành vi công kích cá nhân hoặc chửi thề.
+
+- **Tìm công thức:**
+    
+    - `[Mày/Thằng/Con/Nó]` + `[Chê/Mỉa mai/Dạy đời/Đòi phạt]` $\rightarrow$ **LABEL 1**.
+        
+    - **Từ tục (đm, hãm...)** nhưng không khen $\rightarrow$ **LABEL 1**.
+        
+    - **Khen tích cực (giỏi vcl, đỉnh)** $\rightarrow$ **LABEL 0**.
+        
+- **Kết quả:** Nếu không thuộc 2 trường hợp trên $\rightarrow$ **LABEL 0**.
+    
+
+**Tổng thời gian/comment: 15 giây (Vẫn đảm bảo tốc độ nhưng cực kỳ tinh tế).**
+
+---
+
+## ⚡ 30 VÍ DỤ CHUẨN HÓA (BỔ SUNG)
+
+
+
+|**#**|**Comment**|**Label**|**Lý giải chuyên môn (Rationale)**|
+|---|---|---|---|
+|1|"Hành vi này không chấp nhận được"|**0**|**Behavioral Criticism:** Phê bình hành vi văn minh.|
+|2|"Nên xử phạt nghiêm"|**0**|**Justice:** Đòi hỏi công lý bằng ngôn từ sạch.|
+|3|"Phim dở quá"|**0**|**Review:** Nhận xét sản phẩm trung tính.|
+|4|"Nên vào tù"|**0**|**Legal Penalty:** Hình phạt pháp lý (Non-lethal).|
+|5|"**Hình như** vụ đó bị tử hình rồi"|**0**|**Narrative Fact:** Tường thuật thông tin khách quan.|
+|6|"Phim như rác"|**1**|**Offensive:** Mạt sát sản phẩm/sự vật.|
+|8|"Cho **mày** 10 năm tù"|**1**|**Pronoun Trigger:** Dùng đại từ hạ thấp khi đòi phạt.|
+|9|"**Con** này vào tù đi"|**1**|**Pronoun Trigger:** Xưng hô hạ thấp mục tiêu.|
+|10|"Đồ ngu"|**1**|**Personal Attack:** Xúc phạm trí tuệ.|
+|11|"Địt mẹ cuộc đời"|**1**|**Profanity:** Từ tục xả giận (Tiêu cực).|
+|12|"Xấu quá"|**1**|**Mild Shaming:** Chê bai ngoại hình cá nhân.|
+|13|"Ngu như bò"|**2**|**Dehumanization:** Súc vật hóa trí tuệ (Vạch đỏ).|
+|14|"Giỏi **vcl**"|**0**|**Positive Slang:** Từ tục để khen ngợi.|
+|15|"Đỉnh **vãi**"|**0**|**Positive Slang:** Trạng từ nhấn mạnh tích cực.|
+|16|"**Thằng** trộm nên **chết** đi"|**2**|**Lethal Wish:** Trù ẻo/Kêu gọi cái chết.|
+|17|"**Theo luật** tội này bị **tử hình**"|**0**|**Fact-based:** Cung cấp kiến thức pháp luật.|
+|18|"Loại này nên đem **xử bắn**"|**2**|**Incitement:** Kích động bạo lực cực đoan.|
+|19|"Đáng bị **chém đầu**"|**2**|**Incitement:** Kêu gọi hành vi tàn khốc.|
+|20|"Ai **đánh** nó đi"|**2**|**Incitement:** Kích động bạo lực (Hành động).|
+|21|"Xe cán **chết** mày"|**2**|**Lethal Wish:** Trù ẻo tính mạng.|
+|22|"**Đăng xuất** khỏi trái đất đi"|**2**|**Implicit Lethal:** Ẩn dụ về cái chết.|
+|23|"Bắc kỳ toàn lừa đảo"|**2**|**Hate Speech:** Thù ghét vùng miền (Identity).|
+|24|"Lũ **bê đê** bệnh hoạn"|**2**|**Hate Speech:** Thù ghét danh tính (LGBT).|
+|25|"**Thằng mọi** này"|**2**|**Hate Speech:** Miệt thị sắc tộc/nguồn gốc.|
+|26|"Béo như **lợn**"|**2**|**Dehumanization:** Súc vật hóa ngoại hình.|
+|27|"Mặt **ngựa**"|**2**|**Dehumanization:** So sánh động vật (Ngoại hình).|
+|28|"Nhìn **kinh tởm** như quái vật"|**2**|**Extreme Offensive:** Từ ngữ gây ghê tởm cao độ.|
+|29|"Tôi là người Bắc"|**0**|**Self-Identification:** Tự xưng trung tính.|
+|30|"Nó chửi tôi là **Cali**"|**0**|**Narrative Gate:** Tường thuật lại việc bị xúc phạm.|
+
+### **Khi gặp case khó:**
+
+1. Chụp ảnh comment
+2. Ghi nhận: "Tôi muốn gán X vì Y"
+3. Gửi team lead
+4. Cập nhật vào guideline
+
+### **Quy trình cập nhật:**
+
+- Thêm từ khóa mới vào danh sách
+- Thêm ví dụ vào bảng 30 ví dụ
+- Version control: V5.2, V5.3...
+
+---
+
+## 🔍 KIỂM TRA CHẤT LƯỢNG
+
+### **Test ngay sau khi đọc:**
+
+1. Gán thử 30 ví dụ ở trên
+2. Đối chiếu kết quả
+3. Nếu sai > 3 câu → Đọc lại Decision Tree
+
+### **Đo Kappa mỗi tuần:**
+
+- **Tuần 1:** Kappa > 0.65 (mục tiêu tối thiểu)
+- **Tuần 2:** Kappa > 0.75
+- **Tuần 3:** Kappa > 0.85 (mục tiêu cuối)
+
+---
+
+**Phiên bản:** V5.1 - FINAL (No Contradiction)  
+**Ngày:** 2024-12-18  
+**Tác giả:** NLP Expert Team  
+**Thay đổi chính:** Giải quyết mâu thuẫn "tử hình" vs "vào tù"
+### 📑 1. DANH SÁCH ĐẠI TỪ CẦN CHECK (PRONOUN INDICATORS)
+
+Thiện hãy dùng danh sách này để chạy lệnh `Filter` hoặc `Search` trong Excel/Python:
+
+| **Nhóm**              | **Danh sách đại từ**                                           | **Ý nghĩa ngôn ngữ học**                                                  |
+| --------------------- | -------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| **Nhóm 1: Trực diện** | Mày, tao, nó, chúng mày, bọn mày, mầy, mậy, tụi bây.           | Thể hiện sự đối đầu, thiếu tôn trọng đối phương.                          |
+| **Nhóm 2: Hạ thấp**   | Thằng, con, mụ, lão, bả, ông khú, thằng cha, con mẹ.           | Dùng để gọi người khác một cách rẻ rúng, coi thường.                      |
+| **Nhóm 3: Vật hóa**   | **Loại này, thứ này, cái ngữ này, cái loại, lũ này, đám này.** | **(Trọng tâm)** Biến con người thành "đồ vật" hoặc "hạng người" thấp kém. |
+|                       |                                                                |                                                                           |
+
+---
+
+### 📑 2. CÔNG THỨC CHỐT NHÃN (THE FINAL LOGIC)
+
+Thiện hãy áp dụng công thức "Nếu... thì..." này để gán nhãn lại một cách nhất quán:
+
+- **TRƯỜNG HỢP A: KHÔNG CÓ ĐẠI TỪ NHÓM 1, 2, 3**
+    
+    - _Cấu trúc:_ [Hành vi sai trái] + [Hình phạt/Yêu cầu công lý].
+        
+    - **👉 CHỐT NHÃN 0 (Sạch):** Vì đây là đòi hỏi công bằng xã hội khách quan.
+        
+    - _Ví dụ:_ "Vụ này công an bắt đi tù là đúng.", "Xin lỗi là không đủ cho hành vi này."
+        
+- **TRƯỜNG HỢP B: CÓ ĐẠI TỪ NHÓM 1, 2, 3**
+    
+    - _Cấu trúc:_ **[Đại từ]** + [Hình phạt/Mỉa mai].
+        
+    - **👉 CHỐT NHÃN 1 (Offensive):** Vì trọng tâm đã chuyển sang sỉ nhục cá nhân/nhóm người.
+        
+    - _Ví dụ:_ "**Loại này** cho đi tù cho chừa cái nết.", "**Mày** vào tù mà xin lỗi.", "**Thằng** khốn này bóc lịch là vừa."
+        
+- **TRƯỜNG HỢP C: ĐẠI TỪ + CHỬI THỀ NẶNG/DANH TÍNH**
+    
+    - _Cấu trúc:_ **[Đại từ]** + [Đm/Súc vật/Vùng miền/LGBT] + [Hình phạt].
+        
+    - **👉 CHỐT NHÃN 2 (Hate):** Vì vi phạm nghiêm trọng Guideline về thù ghét.
+        
+    - _Ví dụ:_ "**Lũ** súc vật này cho chết mọt gông trong tù.", "**Thằng** Cali này vào tù đi."
+
+
+

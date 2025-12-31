@@ -10,7 +10,7 @@ from transformers import AutoTokenizer
 
 # Import advanced cleaning từ src
 sys.path.append(r'c:\Học sâu\Dataset\src\preprocessing')
-from advanced_text_cleaning import advanced_clean_text
+from src.preprocessing.advanced_text_cleaning import advanced_clean_text
 
 # Load PhoBERT tokenizer
 tokenizer = AutoTokenizer.from_pretrained("vinai/phobert-base")

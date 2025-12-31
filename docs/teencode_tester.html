@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧪 Teencode Tester</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .feature {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .feature-icon {
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+        
+        .feature-text {
+            font-size: 0.9em;
+            color: #666;
+        }
+        
+        .input-section {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: 'Courier New', monospace;
+            resize: vertical;
+            transition: border-color 0.3s;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        button {
+            flex: 1;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #333;
+        }
+        
+        .btn-secondary:hover {
+            background: #e9ecef;
+        }
+        
+        .output-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .output-label {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .output-text {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            min-height: 60px;
+        }
+        
+        .analysis {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .analysis-item {
+            margin: 5px 0;
+            color: #333;
+        }
+        
+        .examples {
+            margin-top: 30px;
+        }
+        
+        .example-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .example-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+        
+        .example-label {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        
+        .example-text {
+            font-family: 'Courier New', monospace;
+            color: #666;
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧪 Teencode Tester</h1>
+            <p>Test công cụ xử lý teencode với Intensity Preservation</p>
+        </div>
+        
+        <div class="content">
+            <!-- Features -->
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">✅</div>
+                    <div class="feature-text">Giữ nguyên vcl, đm, cc...</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">⏰</div>
+                    <div class="feature-text">Bảo tồn 12:30, 14:00...</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🔗</div>
+                    <div class="feature-text">Giữ separator &lt;/s&gt;</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">😊</div>
+                    <div class="feature-text">Emoji → Tags</div>
+                </div>
+            </div>
+            
+            <!-- Input -->
+            <div class="input-section">
+                <label>📝 Nhập text để test:</label>
+                <textarea id="inputText" rows="4" placeholder="Ví dụ: nguoi ta ko biet gi ca, dm game nay hay vcl, Video lúc 12:30..."></textarea>
+            </div>
+            
+            <!-- Buttons -->
+            <div class="button-group">
+                <button class="btn-primary" onclick="processText()">🔧 Xử lý Teencode</button>
+                <button class="btn-secondary" onclick="clearAll()">🗑️ Xóa</button>
+                <button class="btn-secondary" onclick="toggleExamples()">📚 Ví dụ</button>
+            </div>
+            
+            <!-- Output -->
+            <div id="outputSection" class="output-section hidden">
+                <div class="output-label">📤 Kết quả:</div>
+                <div id="outputText" class="output-text"></div>
+            </div>
+            
+            <!-- Analysis -->
+            <div id="analysisSection" class="analysis hidden">
+                <div class="output-label">🔍 Phân tích:</div>
+                <div id="analysisContent"></div>
+            </div>
+            
+            <!-- Examples -->
+            <div id="examplesSection" class="examples hidden">
+                <h3 style="margin-bottom: 15px;">📚 Ví dụ (Click để test):</h3>
+                
+                <div class="example-item" onclick="loadExample('nguoi ta ko biet gi ca')">
+                    <div class="example-label">Teencode neutral</div>
+                    <div class="example-text">nguoi ta ko biet gi ca</div>
+                </div>
+                
+                <div class="example-item" onclick="loadExample('dm game nay hay vcl')">
+                    <div class="example-label">Intensity preservation</div>
+                    <div class="example-text">dm game nay hay vcl</div>
+                </div>
+                
+                <div class="example-item" onclick="loadExample('Video lúc 12:30 rất hay')">
+                    <div class="example-label">Time format</div>
+                    <div class="example-text">Video lúc 12:30 rất hay</div>
+                </div>
+                
+                <div class="example-item" onclick="loadExample('Boy pho moi </s> Te nan xa hoi')">
+                    <div class="example-label">Separator + teencode</div>
+                    <div class="example-text">Boy pho moi &lt;/s&gt; Te nan xa hoi</div>
+                </div>
+                
+                <div class="example-item" onclick="loadExample('Thật tuyệt vời 😂😂')">
+                    <div class="example-label">Emoji to tags</div>
+                    <div class="example-text">Thật tuyệt vời 😂😂</div>
+                </div>
+                
+                <div class="example-item" onclick="loadExample('Nguyen Van A di hoc')">
+                    <div class="example-label">Person name masking</div>
+                    <div class="example-text">Nguyen Van A di hoc</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Simulated teencode processing (client-side demo)
+        // Note: This is a simplified version. Real processing happens in Python.
+        
+        function processText() {
+            const input = document.getElementById('inputText').value.trim();
+            
+            if (!input) {
+                alert('⚠️ Vui lòng nhập text!');
+                return;
+            }
+            
+            // Simulate processing
+            let output = input.toLowerCase();
+            
+            // Simple replacements (demo only)
+            const replacements = {
+                'nguoi': 'người',
+                'ko': 'không',
+                'k': 'không',
+                'mh': 'mình',
+                't': 'tôi',
+                'm': 'mày',
+                'nha': 'nhé',
+                'wa': 'quá',
+                'qua': 'quá',
+                'biet': 'biết',
+                'di': 'đi',
+                'hoc': 'học',
+                'roi': 'rồi',
+                'ca': 'cả',
+                'nay': 'này',
+                'hay': 'hay',
+                'rat': 'rất',
+                'xa hoi': 'xã hội',
+                'te nan': 'tệ nạn',
+                'pho': 'phố',
+                'moi': 'mới',
+            };
+            
+            // Apply replacements
+            for (const [key, value] of Object.entries(replacements)) {
+                const regex = new RegExp('\\b' + key + '\\b', 'gi');
+                output = output.replace(regex, value);
+            }
+            
+            // Preserve slang (already lowercase)
+            // vcl, vl, đm, dm, cc are preserved
+            
+            // Handle emojis
+            output = output.replace(/😂|🤣|😆/g, '<emo_pos>');
+            output = output.replace(/😭|😢|😡/g, '<emo_neg>');
+            
+            // Handle person names (simple demo)
+            output = output.replace(/\b(nguyen|tran|le|pham|hoang)\s+\w+\s+\w+\b/gi, '<person>');
+            
+            // Display output
+            document.getElementById('outputText').textContent = output;
+            document.getElementById('outputSection').classList.remove('hidden');
+            
+            // Analysis
+            analyzeText(input, output);
+        }
+        
+        function analyzeText(input, output) {
+            const analysis = [];
+            
+            // Check separator
+            if (output.includes('</s>')) {
+                analysis.push('✨ Có separator </s>');
+            }
+            
+            // Check tags
+            const tags = [];
+            if (output.includes('<emo_pos>')) tags.push('<emo_pos>');
+            if (output.includes('<emo_neg>')) tags.push('<emo_neg>');
+            if (output.includes('<person>')) tags.push('<person>');
+            if (tags.length > 0) {
+                analysis.push('✨ Tags: ' + tags.join(', '));
+            }
+            
+            // Check slang
+            const slangs = ['vcl', 'vl', 'đm', 'dm', 'cc'];
+            const foundSlangs = slangs.filter(s => output.includes(s));
+            if (foundSlangs.length > 0) {
+                analysis.push('✨ Slang preserved: ' + foundSlangs.join(', '));
+            }
+            
+            // Check time format
+            const timeRegex = /\d+:\d+/g;
+            const times = output.match(timeRegex);
+            if (times) {
+                analysis.push('✨ Time format: ' + times.join(', '));
+            }
+            
+            // Length
+            analysis.push(`📏 Length: ${input.length} → ${output.length} chars`);
+            
+            // Display analysis
+            const analysisContent = document.getElementById('analysisContent');
+            analysisContent.innerHTML = analysis.map(a => `<div class="analysis-item">${a}</div>`).join('');
+            document.getElementById('analysisSection').classList.remove('hidden');
+        }
+        
+        function clearAll() {
+            document.getElementById('inputText').value = '';
+            document.getElementById('outputSection').classList.add('hidden');
+            document.getElementById('analysisSection').classList.add('hidden');
+        }
+        
+        function toggleExamples() {
+            const section = document.getElementById('examplesSection');
+            section.classList.toggle('hidden');
+        }
+        
+        function loadExample(text) {
+            document.getElementById('inputText').value = text;
+            document.getElementById('examplesSection').classList.add('hidden');
+            processText();
+        }
+    </script>
+</body>
+</html>

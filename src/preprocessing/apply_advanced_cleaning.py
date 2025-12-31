@@ -5,7 +5,7 @@ Apply Advanced Cleaning vào toàn bộ dataset
 import pandas as pd
 import sys
 sys.path.append('.')
-from advanced_text_cleaning import advanced_clean_text
+from src.preprocessing.advanced_text_cleaning import advanced_clean_text
 
 print("="*80)
 print("🔥 APPLY ADVANCED CLEANING VÀO DATASET")
