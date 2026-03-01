@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeSense Kids Guardian - Demo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon">🛡️</div>
+                <div class="logo-text">
+                    <h1>SafeSense Kids Guardian</h1>
+                    <p>Bảo vệ trẻ em trên YouTube bằng AI</p>
+                </div>
+            </div>
+            <div class="header-stats">
+                <div class="stat">
+                    <span class="stat-value">80.87%</span>
+                    <span class="stat-label">Độ chính xác</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">F1: 0.7995</span>
+                    <span class="stat-label">PhoBERT-v2</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Input Section -->
+            <section class="input-section">
+                <h2>🎬 Nhập link YouTube để phân tích</h2>
+                <div class="input-group">
+                    <input 
+                        type="text" 
+                        id="videoUrl" 
+                        placeholder="https://www.youtube.com/watch?v=... hoặc /shorts/..."
+                        aria-label="YouTube URL">
+                    <button id="analyzeBtn" class="btn-primary">
+                        <span>Phân tích ngay</span>
+                    </button>
+                </div>
+                <p class="hint">💡 Support video thường & YouTube Shorts | Hoặc chọn video mẫu bên dưới</p>
+            </section>
+
+            <!-- Technical Details -->
+            <section class="tech-details-section">
+                <h3>🔧 Cơ chế hoạt động</h3>
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <div class="tech-icon">📥</div>
+                        <h4>1. Lấy bình luận</h4>
+                        <p>Sử dụng <strong>YouTube Data API v3</strong> với endpoint <code>commentThreads.list</code></p>
+                        <ul>
+                            <li>✅ Lấy <strong>tối đa 500</strong> bình luận (hoặc ít hơn nếu video có ít)</li>
+                            <li>✅ Support video thường & Shorts</li>
+                            <li>✅ Lọc theo thời gian & độ phổ biến</li>
+                            <li>✅ Phân tích dựa trên số comment thực tế</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon">�</div>
+                        <h4>2. Tiền xử lý</h4>
+                        <p>Chuẩn hóa văn bản trước khi phân loại</p>
+                        <ul>
+                            <li>✅ Normalize teencode → Tiếng Việt chuẩn</li>
+                            <li>✅ Xóa emoji, hashtag, mention</li>
+                            <li>✅ Chuẩn hóa khoảng trắng</li>
+                            <li>✅ Word segmentation (VnCoreNLP)</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon">🤖</div>
+                        <h4>3. Phân loại AI</h4>
+                        <p>Model <strong>PhoBERT-v2</strong> (vinai/phobert-base-v2)</p>
+                        <ul>
+                            <li>✅ 3 nhãn: Clean, Toxic, Hate</li>
+                            <li>✅ F1 Score: 0.7995</li>
+                            <li>✅ Accuracy: 80.87%</li>
+                            <li>✅ Inference: &lt;100ms/comment</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon">📊</div>
+                        <h4>4. Tính điểm</h4>
+                        <p>Công thức: <code>Score = 100 - (Toxic% × 30) - (Hate% × 50)</code></p>
+                        <ul>
+                            <li>🟢 90-100: An toàn</li>
+                            <li>🟡 70-89: Thận trọng</li>
+                            <li>🟠 50-69: Rủi ro</li>
+                            <li>🔴 0-49: Không an toàn</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sample Videos -->
+            <section class="samples-section">
+                <h3>📺 Video mẫu (Click để phân tích)</h3>
+                <p class="samples-hint">💡 Bao gồm cả video thường và YouTube Shorts</p>
+                <div class="samples-grid" id="samplesGrid">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Loading Section -->
+            <section class="loading-section hidden" id="loadingSection">
+                <div class="loading-card">
+                    <div class="spinner"></div>
+                    <h3>🔍 Đang phân tích video...</h3>
+                    <div class="loading-steps">
+                        <div class="step active" id="step1">
+                            <span class="step-icon">📥</span>
+                            <span class="step-text">Lấy thông tin video</span>
+                        </div>
+                        <div class="step" id="step2">
+                            <span class="step-icon">💬</span>
+                            <span class="step-text">Quét bình luận (tối đa 500)</span>
+                        </div>
+                        <div class="step" id="step3">
+                            <span class="step-icon">�</span>
+                            <span class="step-text">Tiền xử lý dữ liệu</span>
+                        </div>
+                        <div class="step" id="step4">
+                            <span class="step-icon">🤖</span>
+                            <span class="step-text">Phân loại bằng AI</span>
+                        </div>
+                        <div class="step" id="step5">
+                            <span class="step-icon">📊</span>
+                            <span class="step-text">Tính điểm an toàn</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section hidden" id="resultsSection">
+                <div class="results-card">
+                    <!-- Video Info -->
+                    <div class="video-info">
+                        <img id="videoThumbnail" src="" alt="Video thumbnail">
+                        <div class="video-details">
+                            <h3 id="videoTitle">Video Title</h3>
+                            <p id="videoChannel">Channel Name</p>
+                        </div>
+                    </div>
+
+                    <!-- Safety Score -->
+                    <div class="safety-score-section">
+                        <div class="score-circle" id="scoreCircle">
+                            <div class="score-emoji" id="scoreEmoji">🟢</div>
+                            <div class="score-value" id="scoreValue">85</div>
+                            <div class="score-max">/100</div>
+                            <div class="score-label" id="scoreLabel">AN TOÀN</div>
+                        </div>
+                        <div class="score-description" id="scoreDescription">
+                            <!-- Will be populated -->
+                        </div>
+                    </div>
+
+                    <!-- Statistics -->
+                    <div class="stats-section">
+                        <h4>📊 Phân tích <span id="totalComments">500</span> bình luận</h4>
+                        <div class="stat-bars">
+                            <div class="stat-bar-item">
+                                <div class="stat-bar-header">
+                                    <span class="stat-bar-label">✅ An toàn (Clean)</span>
+                                    <span class="stat-bar-value" id="cleanValue">450 (90%)</span>
+                                </div>
+                                <div class="stat-bar-track">
+                                    <div class="stat-bar-fill clean" id="cleanBar" style="width: 90%"></div>
+                                </div>
+                            </div>
+                            <div class="stat-bar-item">
+                                <div class="stat-bar-header">
+                                    <span class="stat-bar-label">⚠️ Toxic</span>
+                                    <span class="stat-bar-value" id="toxicValue">40 (8%)</span>
+                                </div>
+                                <div class="stat-bar-track">
+                                    <div class="stat-bar-fill toxic" id="toxicBar" style="width: 8%"></div>
+                                </div>
+                            </div>
+                            <div class="stat-bar-item">
+                                <div class="stat-bar-header">
+                                    <span class="stat-bar-label">🔴 Hate Speech</span>
+                                    <span class="stat-bar-value" id="hateValue">10 (2%)</span>
+                                </div>
+                                <div class="stat-bar-track">
+                                    <div class="stat-bar-fill hate" id="hateBar" style="width: 2%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Concerns -->
+                    <div class="concerns-section" id="concernsSection">
+                        <!-- Will be populated if there are concerns -->
+                    </div>
+
+                    <!-- Sample Analysis -->
+                    <div class="sample-analysis-section">
+                        <h4>📝 Ví dụ phân tích thực tế</h4>
+                        <div class="sample-comments">
+                            <div class="sample-comment clean">
+                                <div class="comment-label">✅ Clean</div>
+                                <div class="comment-text">"Video này hay quá bạn ơi, mình rất thích!"</div>
+                                <div class="comment-result">→ PhoBERT: CLEAN (98.2%)</div>
+                            </div>
+                            <div class="sample-comment toxic">
+                                <div class="comment-label">⚠️ Toxic</div>
+                                <div class="comment-text">"Kênh này hơi bị nhảm nhí nha"</div>
+                                <div class="comment-result">→ PhoBERT: TOXIC (87.4%)</div>
+                            </div>
+                            <div class="sample-comment hate">
+                                <div class="comment-label">🔴 Hate</div>
+                                <div class="comment-text">"Đồ ngu ngốc, đáng bị đăng xuất"</div>
+                                <div class="comment-result">→ PhoBERT: HATE (94.7%)</div>
+                            </div>
+                        </div>
+                        <p class="sample-note">💡 <strong>Số liệu thực tế:</strong> Model phân loại từng comment và đưa ra xác suất cho mỗi label. Điểm an toàn tổng thể được tính dựa trên tỷ lệ % của từng loại comment.</p>
+                    </div>
+
+                    <!-- Recommendation -->
+                    <div class="recommendation-section">
+                        <h4>💡 Khuyến nghị cho phụ huynh</h4>
+                        <p id="recommendation">Đang tải...</p>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="actions-section">
+                        <button class="btn-secondary" id="analyzeAnotherBtn">
+                            🔄 Phân tích video khác
+                        </button>
+                        <button class="btn-secondary" id="shareBtn">
+                            📤 Chia sẻ kết quả
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <p><strong>SafeSense-Vi</strong> - IT Got Talent 2025</p>
+                    <p>Powered by PhoBERT-v2 (vinai/phobert-base-v2)</p>
+                </div>
+                <div class="footer-right">
+                    <p>🎯 F1 Score: 0.7995 | Accuracy: 80.87%</p>
+                    <p>⚡ Inference Time: &lt;100ms</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="mock-data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

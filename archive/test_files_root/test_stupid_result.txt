@@ -1,0 +1,16 @@
+INPUT: you are stupid
+OUTPUT: you are <eng_insult>
+Has <eng_insult>? YES
+--------------------------------------------------
+INPUT: stupid vl
+OUTPUT: <eng_insult> vl
+Has <eng_insult>? YES
+--------------------------------------------------
+INPUT: this is stupid
+OUTPUT: this is <eng_insult>
+Has <eng_insult>? YES
+--------------------------------------------------
+INPUT: STUPID idiot
+OUTPUT: <eng_insult> <eng_insult>
+Has <eng_insult>? YES
+--------------------------------------------------

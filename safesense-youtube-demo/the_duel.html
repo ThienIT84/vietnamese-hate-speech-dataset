@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🥊 The Duel - SafeSense-VI vs Traditional AI</title>
+    <link rel="stylesheet" href="duel_styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">🥊</span>
+                <span class="logo-text">THE DUEL</span>
+            </div>
+            <div class="subtitle">
+                SafeSense-VI vs Traditional AI • IT Got Talent 2025
+            </div>
+        </header>
+
+        <!-- Test Cases Selection -->
+        <section class="test-cases-section">
+            <h2>🎯 7 Test Cases - Contextual Intelligence Showcase</h2>
+            <div class="cases-grid" id="casesGrid">
+                <!-- Will be populated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Input Section -->
+        <section class="input-section">
+            <div class="input-container">
+                <h3>💬 Nhập comment để test (hoặc chọn test case bên trên):</h3>
+                <div class="input-group">
+                    <input 
+                        type="text" 
+                        id="commentInput" 
+                        placeholder="Ví dụ: n.g.u, ch3t đi, vcl ngu vl..." 
+                        class="comment-input"
+                    />
+                    <button id="analyzeBtn" class="analyze-btn">
+                        <span class="btn-icon">⚔️</span>
+                        <span class="btn-text">START DUEL</span>
+                    </button>
+                </div>
+                <div class="context-input-group">
+                    <input 
+                        type="text" 
+                        id="contextInput" 
+                        placeholder="Context (optional): Video title hoặc context..." 
+                        class="context-input"
+                    />
+                </div>
+            </div>
+        </section>
+
+        <!-- Battle Arena -->
+        <section class="arena-section" id="arenaSection" style="display: none;">
+            <div class="arena-header">
+                <div class="arena-title">⚔️ BATTLE ARENA</div>
+                <div class="arena-input" id="arenaInput">
+                    <!-- Will show the input being tested -->
+                </div>
+            </div>
+
+            <div class="battle-grid">
+                <!-- Traditional AI Side -->
+                <div class="fighter-card traditional">
+                    <div class="fighter-header">
+                        <div class="fighter-name">
+                            <span class="fighter-icon">🤖</span>
+                            <span>Traditional AI</span>
+                        </div>
+                        <div class="fighter-subtitle">mBERT / toxic-bert</div>
+                    </div>
+                    
+                    <div class="fighter-body">
+                        <div class="processing-info">
+                            <div class="process-title">⚙️ Processing:</div>
+                            <div class="process-step">
+                                ❌ NO Preprocessing<br>
+                                ⚠️ Raw text → Model
+                            </div>
+                        </div>
+
+                        <div class="result-box" id="traditionalResult">
+                            <div class="result-label">
+                                <span class="label-badge">Đang phân tích...</span>
+                            </div>
+                            <div class="confidence">
+                                <span class="confidence-label">Confidence:</span>
+                                <div class="confidence-bar">
+                                    <div class="confidence-fill" style="width: 0%"></div>
+                                </div>
+                                <span class="confidence-value">--%</span>
+                            </div>
+                            <div class="reasoning">
+                                <strong>Reasoning:</strong>
+                                <p class="reasoning-text">--</p>
+                            </div>
+                            <div class="raw-output">
+                                <strong>Raw Output:</strong>
+                                <code class="output-code">--</code>
+                            </div>
+                        </div>
+
+                        <div class="issues-box" id="traditionalIssues">
+                            <div class="issues-title">⚠️ Issues:</div>
+                            <ul class="issues-list">
+                                <!-- Will be populated -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VS Divider -->
+                <div class="vs-divider">
+                    <div class="vs-circle">
+                        <span class="vs-text">VS</span>
+                    </div>
+                </div>
+
+                <!-- SafeSense-VI Side -->
+                <div class="fighter-card safesense">
+                    <div class="fighter-header">
+                        <div class="fighter-name">
+                            <span class="fighter-icon">🛡️</span>
+                            <span>SafeSense-VI</span>
+                        </div>
+                        <div class="fighter-subtitle">PhoBERT-v2 + 18-step Pipeline</div>
+                    </div>
+                    
+                    <div class="fighter-body">
+                        <div class="processing-info">
+                            <div class="process-title">🔧 Preprocessing:</div>
+                            <div class="process-steps" id="safesenseSteps">
+                                <!-- Will be populated with steps -->
+                            </div>
+                        </div>
+
+                        <div class="result-box" id="safesenseResult">
+                            <div class="result-label">
+                                <span class="label-badge">Đang phân tích...</span>
+                            </div>
+                            <div class="confidence">
+                                <span class="confidence-label">Confidence:</span>
+                                <div class="confidence-bar">
+                                    <div class="confidence-fill" style="width: 0%"></div>
+                                </div>
+                                <span class="confidence-value">--%</span>
+                            </div>
+                            <div class="reasoning">
+                                <strong>Reasoning:</strong>
+                                <p class="reasoning-text">--</p>
+                            </div>
+                            <div class="raw-output">
+                                <strong>Raw Output:</strong>
+                                <code class="output-code">--</code>
+                            </div>
+                        </div>
+
+                        <div class="strengths-box" id="safesenseStrengths">
+                            <div class="strengths-title">✅ Strengths:</div>
+                            <ul class="strengths-list">
+                                <!-- Will be populated -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Winner Announcement -->
+            <div class="winner-section" id="winnerSection" style="display: none;">
+                <div class="winner-announcement">
+                    <div class="winner-icon">🏆</div>
+                    <div class="winner-text">
+                        <div class="winner-name" id="winnerName">SafeSense-VI</div>
+                        <div class="winner-stats" id="winnerStats">
+                            Accuracy Gain: +94.2%
+                        </div>
+                    </div>
+                </div>
+                <div class="explanation-box">
+                    <strong>💡 Explanation:</strong>
+                    <p id="explanationText">--</p>
+                </div>
+            </div>
+
+            <!-- Summary Statistics -->
+            <div class="summary-section" id="summarySection">
+                <h3>📊 Overall Performance (7 Test Cases)</h3>
+                <div class="summary-grid">
+                    <div class="summary-card traditional-summary">
+                        <div class="summary-header">🤖 Traditional AI</div>
+                        <div class="summary-stats">
+                            <div class="stat-item">
+                                <span class="stat-label">Accuracy:</span>
+                                <span class="stat-value">14.3%</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Correct:</span>
+                                <span class="stat-value">1/7</span>
+                            </div>
+                            <div class="stat-item error">
+                                <span class="stat-label">False Negatives:</span>
+                                <span class="stat-value">6</span>
+                            </div>
+                            <div class="stat-item error">
+                                <span class="stat-label">False Positives:</span>
+                                <span class="stat-value">1</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="summary-card improvement-summary">
+                        <div class="summary-header">📈 Improvement</div>
+                        <div class="summary-stats">
+                            <div class="stat-item highlight">
+                                <span class="stat-label">Accuracy Gain:</span>
+                                <span class="stat-value">+85.7%</span>
+                            </div>
+                            <div class="stat-item highlight">
+                                <span class="stat-label">Confidence Gain:</span>
+                                <span class="stat-value">+30.9%</span>
+                            </div>
+                            <div class="stat-item highlight">
+                                <span class="stat-label">FN Reduction:</span>
+                                <span class="stat-value">100%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="summary-card safesense-summary">
+                        <div class="summary-header">🛡️ SafeSense-VI</div>
+                        <div class="summary-stats">
+                            <div class="stat-item">
+                                <span class="stat-label">Accuracy:</span>
+                                <span class="stat-value">100%</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Correct:</span>
+                                <span class="stat-value">7/7</span>
+                            </div>
+                            <div class="stat-item success">
+                                <span class="stat-label">Avg Confidence:</span>
+                                <span class="stat-value">93.3%</span>
+                            </div>
+                            <div class="stat-item success">
+                                <span class="stat-label">Pipeline Steps:</span>
+                                <span class="stat-value">18</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reset-section">
+                <button id="resetBtn" class="reset-btn">
+                    🔄 Test Another Case
+                </button>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>🏆 IT Got Talent 2025 - SafeSense-VI Contextual Intelligence Demo</p>
+            <p class="tech-info">PhoBERT-v2 | F1: 0.7995 | Accuracy: 80.87% | 18-step Preprocessing Pipeline</p>
+        </footer>
+    </div>
+
+    <script src="duel_app.js"></script>
+</body>
+</html>

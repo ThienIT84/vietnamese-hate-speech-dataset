@@ -50,19 +50,40 @@ ehthumbs.db
 Thumbs.db
 
 # Data (Large files & Raw data)
-# Uncomment lines below if you want to ignore raw data
-# data/raw/
-# data/processed/
+data/raw/
+data/processed/
+data/interim/
+data/gold/
 *.csv
 *.xlsx
+*.xls
 *.json
 *.pkl
 *.h5
+
+# Excel temp/lock files (created when file is open)
+~$*.xlsx
+~$*.xls
+~$*.csv
+
+# Model weights & checkpoints (CRITICAL - never push these)
+*.safetensors
+*.bin
 *.pth
 *.pt
+*.onnx
 *.tfevents*
 runs/
 logs/
+
+# Model folders
+models/
+TOXIC_COMMENT/models/
+TOXIC_COMMENT/notebooks/phobert_toxic_results/
+src_submission/training/output*/
+**/checkpoint-*/
+**/*-final*/
+**/*hate-speech*/
 
 # Exception: Keep example files or specific datasets if needed
 !data/final/final_dataset_relaxed_fixed.csv
@@ -70,6 +91,11 @@ logs/
 !TOXIC_COMMENT/datasets/final/final_1k_thien_gold_sample.json
 !TOXIC_COMMENT/datasets/final/final_thien_gold_sample.json
 !TOXIC_COMMENT/datasets/final/labeling_task_Quang.csv
+
+# Exception: Keep config/tokenizer JSON (không phải data)
+!src/**/*.json
+!configs/**/*.json
+!safesense-kids-extension/**/*.json
 
 # Logs
 *.log

@@ -78,7 +78,7 @@ TEENCODE_NEUTRAL = {
     "đúg": "đúng", "thiểu nng": "thiểu năng", "sử tù": "xử từ",
     "jùi": "rồi", "đ* chó": "đĩ chó", "đ* lồn": "đĩ lồn",                          
     "trc": "trước", "hs sv": "học sinh sinh viên", "gớm": "ghớm",
-    "bít": "biết", "fú pàk": "phú bà", "thoy": "thôi",
+    "bít": "biết", "fú pàk": "phú bà", "thoy": "thôi", "bt": "biết",
     # === TỪ KẾT THÚC CÂU (Sentence-ending particles) ===
     # CRITICAL: Thêm để tránh NER nhầm với tên người
     "ak": "ạ", "ah": "ả", "uh": "ừ", "uk": "ừ",
@@ -103,7 +103,7 @@ TEENCODE_NEUTRAL = {
     "vs": "với", "vj": "vì", "vi": "vì", "ms": "mới",
     "bik": "biết", "bit": "biết", "biet": "biết",
     "hiu": "hiểu", "hjeu": "hiểu",
-    "lm": "làm", "lam": "làm", "gquyet": "giải quyết",
+    "lm": "làm", "lam": "làm",
     "đi": "đi", "di": "đi", "không thíc": "không thích",
     "nch": "nói chuyện", "yêu nc": "yêu nước",
     "iu": "yêu", "yeu": "yêu",
@@ -139,9 +139,8 @@ TEENCODE_NEUTRAL = {
     "tar": "ta", "ngo": "ngờ", "jv": "gì vậy", "gòi": "rồi",
     "nchung": "nói chung", "tr": "trời", "miên": "miễn", "noi": "nói",
     "giup": "giúp", "dk": "được", "csong": "cuộc sống", "đkh": "đúng không", "đk": "được", 
-    "trc": "trước", "trg": "trong", "không âu": "không đâu",
+    "trc": "trước", "không âu": "không đâu",
     "tóp tóp": "tiktok", "cx": "cũng", "pbvm": "phân biệt vùng miền", "nầy": "này",
-    "trg": "trong",  # ADDED: Fix for "trg" not being converted
     "kg ăn": "không ăn", "ủ tờ": "ở tù",
     "chúng n": "chúng nó", "thây k": "thấy không",
     "csgt": "cảnh sát giao thông", "pkl": "phân khối lớn",
@@ -186,13 +185,13 @@ TEENCODE_NEUTRAL = {
     "ad": "admin", "ytb": "youtube", "fb": "facebook",
     "zl": "zalo", "ig": "instagram", "tt": "tiktok",
     "live": "livestream", "cmt": "bình luận", "sr": "xin lỗi",
-    "thj": "thì", "đj": "đi",
+
     
     # Mixed language toxic
-    "stupid": "ngu", "idiot": "đồ ngốc", "dumb": "ngu", "ctrai": "con trai",
+    "stupid": "ngu", "idiot": "đồ ngốc", "dumb": "ngu", "ctrai": "con trai", "focus": "tập trung",
     "fuck": "địt", "shit": "cứt", "pakky": "bắc kỳ", "sgk": "sách giáo khoa",
     "trash": "rác", "loser": "kẻ thua cuộc", "ni": "này", "bắt kì": "bắc kỳ",
-    "sút vật": "súc vật", "tau": "tao", "2vc": "2 vợ chồng", "kg tha": "không tha",
+    "ngu l": "ngu lồn", "sút vật": "súc vật", "tau": "tao", "2vc": "2 vợ chồng", "kg tha": "không tha",
     # Địa điểm 
     "pbd": "phố đi bộ", "ló": "nó", "zợ": "vợ", "seo": "sao", "khg": "không","dzaii": "đẹp trai",
     "6 tính": "xấu tính", "thui": "thôi", "hoi": "thôi", "cíu": "cứu", "dzai": "đẹp trai",
@@ -216,7 +215,8 @@ TEENCODE_NEUTRAL = {
     "notify": "thông báo", "notification": "thông báo",
     "hashtag": "thẻ", "tag": "gắn thẻ", "content": "nội dung", "đ ngờ": "đéo ngờ",
     "viral": "lan truyền", "trending": "xu hướng",
-    "caption": "chú thích",
+    "caption": "chú thích", "fact": "sự thật",
+    '3d': "bê đê", "straight": "thẳng", "3 weu": "ba que", 
     "repost": "đăng lại", "share": "chia sẻ",
     "fake": "giả", "real": "thật",
     "hater": "người ghét", "haters": "người ghét",
@@ -246,7 +246,22 @@ TEENCODE_NEUTRAL = {
     "trg": "trong",  # CRITICAL FIX: Missing teencode mapping
 }
 
-# Nhóm 2: TEENCODE_INTENSITY_SENSITIVE - Preserve morphology (BẢO TOÀN)
+# Nhóm 2A: TEENCODE_INTENSITY_EXPAND - Expand but preserve intensity
+# ⚠️ CRITICAL: Các từ này CẦN được expand để model hiểu rõ hơn
+# Nhưng vẫn giữ nguyên intensity (không làm mất tín hiệu toxic)
+TEENCODE_INTENSITY_EXPAND = {
+    # Viết tắt toxic cần expand để model hiểu
+    "dkm": "địt con mẹ",
+    "đkm": "địt con mẹ",
+    "dcm": "địt con mẹ",
+    "đcm": "địt con mẹ",
+    "vcl": "vãi cả lồn",
+    "vl": "vãi lồn",
+    "dmm": "địt mẹ mày",
+    "đmm": "địt mẹ mày",
+}
+
+# Nhóm 2B: TEENCODE_INTENSITY_SENSITIVE - Preserve morphology (BẢO TOÀN)
 # ⚠️ CRITICAL: Các từ trong set này sẽ KHÔNG được chuẩn hóa
 # Lý do: Giữ nguyên hình thái để PhoBERT học được intensity gradient
 TEENCODE_INTENSITY_SENSITIVE = {
@@ -414,9 +429,8 @@ TOXIC_CONTEXT = {
     'khùng', 'óc chó', 'óc lợn', 'rác', 'phế', 'xấu', 'chó',
     'lợn', 'heo', 'đần', 'ngáo', 'stupid', 'idiot', 'fuck',
     'vãi lồn', 'vãi', 'ngu lồn',  # After normalization
-    # Viết tắt toxic (preserved forms) - both with and without diacritics
+    # Viết tắt toxic (preserved forms)
     'đkm', 'dkm', 'dcm', 'đcm', 'dmm', 'đmm',
-    'vcl', 'vl',  # Already above but repeated for clarity
 }
 
 # =====================================================
@@ -683,42 +697,6 @@ def remove_hashtags(text):
     """
     # Remove hashtags with Vietnamese diacritics (single word or with underscores)
     text = re.sub(r'#[\w\u00C0-\u1EF9_]+', '', text)
-    return text
-
-def remove_social_links(text):
-    """Remove social media link patterns
-    
-    Loại bỏ các pattern social links như:
-    - "youtube : facebook : instagram : tiktok :"
-    - "awai : youtube : facebook :"
-    - "trà bông : tiktok : facebook : instagram : threads :"
-    
-    Examples:
-        "awai : youtube : facebook : instagram :" → ""
-        "video hay | youtube : tiktok :" → "video hay |"
-    """
-    # Pattern: Remove sequences of "word : word : word :" (3 or more colons)
-    # This catches social media chains without needing to list all platforms
-    # Example: "awai : youtube : facebook : instagram : tiktok :"
-    
-    # Pattern 1: Remove chains with 3+ colons (word : word : word : ...)
-    # This is more general and catches all social link patterns
-    text = re.sub(
-        r'\b[\w\s]+\s*:\s*[\w\s]+\s*:\s*(?:[\w\s]+\s*:\s*)+',
-        '',
-        text,
-        flags=re.IGNORECASE
-    )
-    
-    # Pattern 2: Clean up any remaining isolated "word :" at the end
-    # Example: "threads :" or "music :"
-    text = re.sub(
-        r'\b(?:youtube|facebook|instagram|tiktok|twitter|threads|zalo|music|win)\s*:\s*',
-        '',
-        text,
-        flags=re.IGNORECASE
-    )
-    
     return text
 
 # =====================================================
@@ -1007,56 +985,44 @@ def remove_repeated_chars(text):
 
 def remove_bypass_patterns(text):
     """Xử lý bypass patterns: n.g.u → ngu, đ-m → đm
-    
-    Xử lý các kỹ thuật lách luật bằng cách chèn ký tự đặc biệt giữa các chữ cái
-    Ví dụ: n.g.u, đ-m, v_c_l, n * g * u
+    CHỈ xử lý giữa các CHỮ CÁI, không xử lý số và KHÔNG xử lý tags
     
     CRITICAL: 
     - Bỏ qua tags như <emo_neg>, <eng_insult>
     - Bỏ qua cụm a-z, A-Z (không phải bypass pattern)
     """
+    # Bảo vệ tags trước khi xử lý
     import re
-    
-    # 1. Bảo vệ tags
     tag_pattern = r'<[^>]+>'
     tags = re.findall(tag_pattern, text)
     for i, tag in enumerate(tags):
         text = text.replace(tag, f'___TAG{i}___')
     
-    # 2. Bảo vệ cụm đặc biệt a-z, A-Z
+    # ⭐ NEW: Bảo vệ cụm a-z, A-Z trước khi xử lý
+    # Replace a-z, A-Z với placeholder
     text = text.replace('a-z', '___AZ___')
     text = text.replace('A-Z', '___AZ___')
     
-    # 3. Xử lý bypass patterns
-    # Hàm helper để loại bỏ các ký tự ngăn cách
-    def clean_bypass(match):
-        """Loại bỏ dấu chấm, gạch, underscore, dấu sao, khoảng trắng"""
-        cleaned = match.group(0)
-        for char in ['.', '-', '_', '*', ' ']:
-            cleaned = cleaned.replace(char, '')
-        return cleaned
+    # Xóa dấu chấm giữa các chữ cái đơn (không phải số)
+    text = re.sub(r'([a-zA-Zàáảãạăắằẳẵặâấầẩẫậđèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵ])\.([a-zA-Zàáảãạăắằẳẵặâấầẩẫậđèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵ])\.?([a-zA-Zàáảãạăắằẳẵặâấầẩẫậđèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵ])?', r'\1\2\3', text)
     
-    # Regex tìm chuỗi chữ cái có dấu ngăn cách giữa chúng
-    # Pattern: chữ + (khoảng trắng? + dấu + khoảng trắng? + chữ) lặp lại
-    # Ví dụ: n.g.u, đ - m, v _ c _ l, n * g * u
-    bypass_regex = r'[a-zA-Zàáảãạăắằẳẵặâấầẩẫậđèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵ](?:\s*[\.\-_\*]+\s*[a-zA-Zàáảãạăắằẳẵặâấầẩẫậđèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵ])+'
+    # Xóa dấu gạch giữa các chữ cái (bypass pattern: đ-m, n-g-u)
+    # CHỈ xóa khi có ít nhất 2 chữ cái ở một bên (không phải single letter)
+    text = re.sub(r'([a-zA-Zàáảãạăắằẳẵặâấầẩẫậđèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵ]{2,})\-([a-zA-Zàáảãạăắằẳẵặâấầẩẫậđèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵ])', r'\1\2', text)
+    text = re.sub(r'([a-zA-Zàáảãạăắằẳẵặâấầẩẫậđèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵ])\-([a-zA-Zàáảãạăắằẳẵặâấầẩẫậđèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵ]{2,})', r'\1\2', text)
     
-    # Chạy nhiều lần cho đến khi không còn match nữa (xử lý các trường hợp lồng nhau)
-    max_iterations = 10
-    for _ in range(max_iterations):
-        new_text = re.sub(bypass_regex, clean_bypass, text)
-        if new_text == text:  # Không còn thay đổi
-            break
-        text = new_text
+    # Xóa dấu gạch dưới giữa các chữ cái đơn (KHÔNG trong tags)
+    text = re.sub(r'([a-zA-Zàáảãạăắằẳẵặâấầẩẫậđèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵ])\_([a-zA-Zàáảãạăắằẳẵặâấầẩẫậđèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵ])', r'\1\2', text)
+    # Xóa dấu * giữa các chữ cái
+    text = re.sub(r'([a-zA-Zàáảãạăắằẳẵặâấầẩẫậđèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵ])\*([a-zA-Zàáảãạăắằẳẵặâấầẩẫậđèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵ])', r'\1\2', text)
     
-    # 4. Khôi phục cụm đặc biệt
+    # ⭐ Khôi phục a-z, A-Z
     text = text.replace('___AZ___', 'a-z')
     
-    # 5. Khôi phục tags
+    # Khôi phục tags
     for i, tag in enumerate(tags):
         text = text.replace(f'___TAG{i}___', tag)
     
-    return text
     return text
 
 def convert_leetspeak(text):
@@ -1108,9 +1074,6 @@ def remove_emojis(text):
     INSULT EMOJI INTENSITY LOGIC:
     - Single emoji: 🐕 → chó
     - Repeated emojis: 🐕🐕🐕🐕 → chó <intense>
-    
-    PUNCTUATION PRESERVATION (V7.4):
-    - Preserve periods before emojis: "nhỉ.😭" → "nhỉ. <emo_neg>"
     """
     # Step 0: Process INSULT emojis with intensity logic FIRST
     for emoji, replacement in INSULT_EMOJI_MAP.items():
@@ -1138,24 +1101,15 @@ def remove_emojis(text):
             text = text.replace(emoji, replacement)
     
     # Step 2: Convert emoji có sentiment (generic tags)
-    # PRESERVE PUNCTUATION: Check if there's a period/comma before emoji
     for emoji, replacement in EMOJI_SENTIMENT.items():
         if emoji in text:  # Only process if emoji still exists
             if replacement:  # If not empty string (has tag)
-                # Preserve punctuation before emoji
-                # Pattern: (optional punctuation)(emoji) → (punctuation) (tag)
-                pattern = r'([.,!?;:]?)' + re.escape(emoji)
-                text = re.sub(pattern, r'\1 ' + replacement + ' ', text)
+                text = text.replace(emoji, f' {replacement} ')
             else:  # Empty replacement (neutral emoji)
-                # Still preserve punctuation
-                pattern = r'([.,!?;:]?)' + re.escape(emoji)
-                text = re.sub(pattern, r'\1 ', text)
+                text = text.replace(emoji, ' ')
     
     # Step 3: Xóa tất cả emoji còn lại (emoji không có trong dict)
-    # PRESERVE PUNCTUATION before removing
-    emoji_pattern = re.compile(
-        r'([.,!?;:]?)'  # Capture optional punctuation
-        r'['
+    emoji_pattern = re.compile("["
         u"\U0001F600-\U0001F64F"  # emoticons
         u"\U0001F300-\U0001F5FF"  # symbols & pictographs
         u"\U0001F680-\U0001F6FF"  # transport & map symbols
@@ -1165,9 +1119,8 @@ def remove_emojis(text):
         u"\U0001F900-\U0001F9FF"  # supplemental symbols
         u"\U0001FA00-\U0001FA6F"  # chess symbols
         u"\U0001FA70-\U0001FAFF"  # symbols and pictographs extended-a
-        r']+'
-    , flags=re.UNICODE)
-    text = emoji_pattern.sub(r'\1 ', text)
+        "]+", flags=re.UNICODE)
+    text = emoji_pattern.sub(' ', text)
     return text
 
 def map_english_insults(text):
@@ -1225,17 +1178,20 @@ def normalize_teencode(text):
     - PRESERVE intensity-sensitive words to maintain nuance
     - PRESERVE capitalization for NER (Named Entity Recognition)
     
+    NEW in V7.3:
+    - Case-insensitive matching but preserves original case
+    - Prevents NER false positives (e.g., "chị ak" → "chị ạ", not "<person>")
+    
     Examples:
         "ko biết" → "không biết" (neutral, normalize)
         "chị ak" → "chị ạ" (prevents NER from thinking "ak" is a name)
         "Trần Ngọc" → "Trần Ngọc" (preserved for NER)
         "đẹp đm" → "đẹp đm" (preserve for Label 0 detection)
-        "đkm m" → "đkm mày" (preserve đkm, context-aware m)
         "địt mẹ mày" → "địt mẹ mày" (already explicit, no change)
     
     Why this works:
     - PhoBERT learns "đm + positive" = Label 0 (slang)
-    - PhoBERT learns "đkm + insult" = Label 1 (toxic)
+    - PhoBERT learns "địt mẹ + insult" = Label 1 (toxic)
     - Morphology becomes a feature, not noise
     
     Returns:
@@ -1366,10 +1322,6 @@ def advanced_clean_text(text):
     
     # Step 3: Remove hashtags
     text = remove_hashtags(text)
-    
-    # Step 3.5: Remove social media link patterns (NEW)
-    # Remove patterns like "youtube : facebook : instagram : tiktok :"
-    text = remove_social_links(text)
     
     # Step 4: Replace @mentions with <USER>
     text = remove_mentions(text)

@@ -1,0 +1,386 @@
+/**
+ * SafeSense Kids Guardian - Styles
+ * Beautiful, kid-friendly UI for safety overlay
+ */
+
+/* Main overlay container */
+.safesense-overlay {
+  margin: 20px 0;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Card container */
+.safesense-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  color: white;
+  font-family: 'YouTube Sans', 'Roboto', sans-serif;
+  max-width: 100%;
+}
+
+/* Header */
+.safesense-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.safesense-header h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.safesense-close {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  font-size: 28px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  line-height: 1;
+  padding: 0;
+}
+
+.safesense-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(90deg);
+}
+
+/* Score section */
+.safesense-score-section {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.safesense-score-circle {
+  width: 160px;
+  height: 160px;
+  border: 8px solid white;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.safesense-score-emoji {
+  font-size: 48px;
+  margin-bottom: 8px;
+}
+
+.safesense-score-value {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.safesense-score-label {
+  font-size: 14px;
+  margin-top: 4px;
+  opacity: 0.9;
+  font-weight: 500;
+}
+
+/* Stats section */
+.safesense-stats-section {
+  margin: 24px 0;
+}
+
+.safesense-analyzed {
+  text-align: center;
+  margin-bottom: 16px;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.safesense-stats-bars {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 16px;
+  backdrop-filter: blur(10px);
+}
+
+.safesense-stat-row {
+  margin-bottom: 12px;
+}
+
+.safesense-stat-row:last-child {
+  margin-bottom: 0;
+}
+
+.safesense-stat-label {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.safesense-stat-bar {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  height: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.safesense-stat-fill {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  font-size: 12px;
+  font-weight: 600;
+  transition: width 0.5s ease-out;
+  min-width: 60px;
+}
+
+.safesense-stat-fill.safesense-clean {
+  background: linear-gradient(90deg, #22c55e, #16a34a);
+}
+
+.safesense-stat-fill.safesense-toxic {
+  background: linear-gradient(90deg, #eab308, #ca8a04);
+}
+
+.safesense-stat-fill.safesense-hate {
+  background: linear-gradient(90deg, #ef4444, #dc2626);
+}
+
+/* Concerns section */
+.safesense-concerns {
+  background: rgba(239, 68, 68, 0.2);
+  border-left: 4px solid #ef4444;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 16px 0;
+}
+
+.safesense-concerns-title {
+  font-weight: 600;
+  margin: 0 0 8px 0;
+  font-size: 14px;
+}
+
+.safesense-concern-item {
+  font-size: 13px;
+  margin: 4px 0;
+  opacity: 0.95;
+}
+
+/* Recommendation section */
+.safesense-recommendation {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 16px;
+  margin: 16px 0;
+  backdrop-filter: blur(10px);
+}
+
+.safesense-recommendation p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.safesense-recommendation p:first-child {
+  margin-bottom: 8px;
+}
+
+/* Actions section */
+.safesense-actions {
+  display: flex;
+  gap: 12px;
+  margin: 20px 0 16px 0;
+}
+
+.safesense-btn {
+  flex: 1;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.safesense-btn-primary {
+  background: white;
+  color: #667eea;
+}
+
+.safesense-btn-primary:hover {
+  background: #f0f0f0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.safesense-btn-secondary {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  backdrop-filter: blur(10px);
+}
+
+.safesense-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Footer */
+.safesense-footer {
+  text-align: center;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.safesense-footer small {
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+/* Loading state */
+.safesense-loading-card {
+  text-align: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.safesense-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.safesense-loading-card h3 {
+  margin: 0 0 12px 0;
+  font-size: 20px;
+}
+
+.safesense-loading-card p {
+  margin: 0;
+  opacity: 0.9;
+  font-size: 14px;
+}
+
+.safesense-subtext {
+  font-size: 12px !important;
+  opacity: 0.7 !important;
+  margin-top: 8px !important;
+}
+
+/* Error state */
+.safesense-error {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  text-align: center;
+}
+
+.safesense-error h3 {
+  margin: 0 0 12px 0;
+}
+
+.safesense-error p {
+  margin: 8px 0;
+  font-size: 14px;
+}
+
+/* Level-specific colors */
+.safesense-safe .safesense-card {
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+}
+
+.safesense-caution .safesense-card {
+  background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);
+}
+
+.safesense-risky .safesense-card {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+}
+
+.safesense-not_safe .safesense-card {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .safesense-card {
+    padding: 16px;
+  }
+
+  .safesense-score-circle {
+    width: 120px;
+    height: 120px;
+  }
+
+  .safesense-score-emoji {
+    font-size: 36px;
+  }
+
+  .safesense-score-value {
+    font-size: 24px;
+  }
+
+  .safesense-actions {
+    flex-direction: column;
+  }
+
+  .safesense-btn {
+    width: 100%;
+  }
+}
+
+/* Accessibility */
+.safesense-btn:focus {
+  outline: 2px solid white;
+  outline-offset: 2px;
+}
+
+.safesense-close:focus {
+  outline: 2px solid white;
+  outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+  .safesense-overlay {
+    display: none;
+  }
+}

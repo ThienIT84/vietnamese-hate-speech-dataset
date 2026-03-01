@@ -1,0 +1,42 @@
+{
+  "manifest_version": 3,
+  "name": "SafeSense Kids Guardian",
+  "version": "1.0.0",
+  "description": "Bảo vệ trẻ em trên YouTube với AI - Phân tích độ an toàn của video từ comments",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "alarms",
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://www.youtube.com/*",
+    "https://www.googleapis.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://www.youtube.com/watch*"],
+      "js": [
+        "utils/cache.js",
+        "utils/api.js",
+        "utils/safety-scorer.js",
+        "content.js"
+      ],
+      "css": ["styles.css"],
+      "run_at": "document_end"
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "SafeSense Kids Guardian"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["assets/*"],
+      "matches": ["https://www.youtube.com/*"]
+    }
+  ]
+}
